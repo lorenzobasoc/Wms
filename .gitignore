@@ -1,0 +1,47 @@
+### files to be ignored ###
+
+# system files
+.DS_Store
+Thumbs.db
+$RECYCLE.BIN
+
+# IDE config folders
+.vs
+.vscode
+
+# compilation folders
+bin
+obj
+publish
+x64
+
+# logs
+[Ll]og
+[Ll]ogs
+*.log
+*.logs
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+# !**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+
+# NodeJS packages
+node_modules
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# settings/config files
+settings.json
+launchSettings.json
+appsettings.json
+appsettings.*.json
+configs/

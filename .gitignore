@@ -45,3 +45,5 @@ launchSettings.json
 appsettings.json
 appsettings.*.json
 configs/
+
+.editorconfig

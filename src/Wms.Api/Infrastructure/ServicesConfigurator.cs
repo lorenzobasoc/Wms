@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Wms.Api.DataAccess;
 
 namespace Wms.Api.Infrastructure;

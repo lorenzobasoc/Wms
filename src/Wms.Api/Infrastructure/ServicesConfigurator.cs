@@ -1,3 +1,4 @@
+using FastEndpoints;
 using Wms.Api.DataAccess;
 
 namespace Wms.Api.Infrastructure;
@@ -10,11 +11,16 @@ public static class ServicesConfigurator
     public static void ConfigureServices(this WebApplicationBuilder builder) {
         InitializeServices(builder);
         ConfigureDatabase();
+        ConfigureFastEndpoints();
     }
 
     private static void InitializeServices(WebApplicationBuilder builder) {
         _services = builder.Services;
         _config = new AppConfiguration(builder.Configuration);
+    }
+
+    private static void ConfigureFastEndpoints() {
+        _services.AddFastEndpoints();
     }
 
     private static void ConfigureDatabase() {

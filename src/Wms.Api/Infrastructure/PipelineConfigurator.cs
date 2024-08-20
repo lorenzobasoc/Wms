@@ -1,3 +1,5 @@
+using FastEndpoints;
+
 namespace Wms.Api.Infrastructure;
 
 public static class PipelineConfigurator
@@ -8,5 +10,6 @@ public static class PipelineConfigurator
             app.UseSwaggerUI();
         }
         app.UseHttpsRedirection();
+        app.UseFastEndpoints();
     }
 }

@@ -7,7 +7,7 @@ public class User : DomainEntity
     public string Role { get; set; }
     public string Email { get; set; }
     public bool EmailConfirmed { get; set; }
-    public string PasswordHash { get; set; }
+    public string? PasswordHash { get; set; }
 
     public File Photo { get; set; }
     public Guid? PhotoId { get; set; }

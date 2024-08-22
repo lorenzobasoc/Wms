@@ -40,13 +40,13 @@ public static class ServicesConfigurator
             .AddAuthenticationCookie(validFor: TimeSpan.FromMinutes(10))
             .AddAuthorization(options => {
                 options.AddPolicy(
-                    Policies.WORKER_POLICY, 
+                    AppPolicies.WORKER_POLICY, 
                     policy => policy
                         .RequireAuthenticatedUser()
                         .RequireAssertion(context =>
                             context.User.Identities.Any(i => i.Claims.Any(c => c.Type == ClaimTypes.Role && Roles.ALL.Contains(c.Value)))));
                 options.AddPolicy(
-                    Policies.ADMIN_POLICY, 
+                    AppPolicies.ADMIN_POLICY, 
                     policy => policy
                         .RequireAuthenticatedUser()
                         .RequireAssertion(context =>

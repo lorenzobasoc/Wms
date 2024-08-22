@@ -8,7 +8,6 @@ public class Login(AuthRepo authRepo, IPasswordHasher<User> hasher) : Endpoint<L
     private readonly AuthRepo _authRepo = authRepo;
     private readonly IPasswordHasher<User> _hasher = hasher;
 
-
     public override void Configure() {
         Post(ApiRoutes.Auth.Login);
         AllowAnonymous();

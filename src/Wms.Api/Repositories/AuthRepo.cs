@@ -10,4 +10,9 @@ public class AuthRepo(AppConfiguration config, Db db) : BaseRepo(config, db)
         var user = await _db.Users.SingleOrDefaultAsync(u => u.Email == email);
         return user;
     }
+
+    public async Task Create(User user) {
+        _db.Users.Add(user);
+        await _db.SaveChangesAsync();
+    }    
 }

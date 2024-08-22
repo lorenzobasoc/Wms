@@ -19,8 +19,8 @@ namespace Wms.Api.Migrations
                     type = table.Column<string>(type: "text", nullable: false),
                     title = table.Column<string>(type: "text", nullable: false),
                     data = table.Column<byte[]>(type: "bytea", nullable: false),
-                    added = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    modified = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    added = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    modified = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -34,8 +34,8 @@ namespace Wms.Api.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     name = table.Column<string>(type: "text", nullable: false),
                     description = table.Column<string>(type: "text", nullable: false),
-                    added = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    modified = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    added = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    modified = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,10 +53,9 @@ namespace Wms.Api.Migrations
                     email = table.Column<string>(type: "text", nullable: false),
                     email_confirmed = table.Column<bool>(type: "boolean", nullable: false),
                     password_hash = table.Column<string>(type: "text", nullable: false),
-                    security_stamp = table.Column<string>(type: "text", nullable: false),
                     photo_id = table.Column<Guid>(type: "uuid", nullable: true),
-                    added = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    modified = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    added = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    modified = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,8 +76,8 @@ namespace Wms.Api.Migrations
                     description = table.Column<string>(type: "text", nullable: false),
                     photo_id = table.Column<Guid>(type: "uuid", nullable: true),
                     floor_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    added = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    modified = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    added = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    modified = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -103,8 +102,8 @@ namespace Wms.Api.Migrations
                     type = table.Column<string>(type: "text", nullable: false),
                     photo_id = table.Column<Guid>(type: "uuid", nullable: true),
                     room_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    added = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    modified = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    added = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    modified = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -128,8 +127,8 @@ namespace Wms.Api.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     table_id = table.Column<Guid>(type: "uuid", nullable: false),
                     photo_id = table.Column<Guid>(type: "uuid", nullable: true),
-                    added = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    modified = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    added = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    modified = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -154,13 +153,13 @@ namespace Wms.Api.Migrations
                     title = table.Column<string>(type: "text", nullable: false),
                     note = table.Column<string>(type: "text", nullable: false),
                     type = table.Column<string>(type: "text", nullable: false),
-                    start_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    end_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    start_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    end_date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     seat_id = table.Column<Guid>(type: "uuid", nullable: true),
                     room_id = table.Column<Guid>(type: "uuid", nullable: true),
-                    added = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    modified = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    added = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    modified = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -193,8 +192,8 @@ namespace Wms.Api.Migrations
                     to_user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     table_id = table.Column<Guid>(type: "uuid", nullable: true),
                     booking_id = table.Column<Guid>(type: "uuid", nullable: true),
-                    added = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    modified = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    added = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    modified = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {

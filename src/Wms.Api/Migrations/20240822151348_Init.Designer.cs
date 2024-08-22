@@ -12,7 +12,7 @@ using Wms.Api.DataAccess;
 namespace Wms.Api.Migrations
 {
     [DbContext(typeof(Db))]
-    [Migration("20240822102606_Init")]
+    [Migration("20240822151348_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -33,15 +33,15 @@ namespace Wms.Api.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("Added")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("added");
 
                     b.Property<DateTime>("EndDate")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("end_date");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("modified");
 
                     b.Property<string>("Note")
@@ -58,7 +58,7 @@ namespace Wms.Api.Migrations
                         .HasColumnName("seat_id");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("start_date");
 
                     b.Property<string>("Title")
@@ -98,7 +98,7 @@ namespace Wms.Api.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("Added")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("added");
 
                     b.Property<byte[]>("Data")
@@ -107,7 +107,7 @@ namespace Wms.Api.Migrations
                         .HasColumnName("data");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("modified");
 
                     b.Property<string>("Title")
@@ -134,7 +134,7 @@ namespace Wms.Api.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("Added")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("added");
 
                     b.Property<string>("Description")
@@ -143,7 +143,7 @@ namespace Wms.Api.Migrations
                         .HasColumnName("description");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("modified");
 
                     b.Property<string>("Name")
@@ -165,7 +165,7 @@ namespace Wms.Api.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("Added")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("added");
 
                     b.Property<Guid?>("BookingId")
@@ -182,7 +182,7 @@ namespace Wms.Api.Migrations
                         .HasColumnName("message");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("modified");
 
                     b.Property<string>("Outcome")
@@ -224,7 +224,7 @@ namespace Wms.Api.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("Added")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("added");
 
                     b.Property<string>("Description")
@@ -237,7 +237,7 @@ namespace Wms.Api.Migrations
                         .HasColumnName("floor_id");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("modified");
 
                     b.Property<string>("Name")
@@ -270,11 +270,11 @@ namespace Wms.Api.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("Added")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("added");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("modified");
 
                     b.Property<Guid?>("PhotoId")
@@ -306,11 +306,11 @@ namespace Wms.Api.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("Added")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("added");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("modified");
 
                     b.Property<Guid?>("PhotoId")
@@ -347,7 +347,7 @@ namespace Wms.Api.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("Added")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("added");
 
                     b.Property<string>("Email")
@@ -360,7 +360,7 @@ namespace Wms.Api.Migrations
                         .HasColumnName("email_confirmed");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("modified");
 
                     b.Property<string>("Name")
@@ -381,11 +381,6 @@ namespace Wms.Api.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("role");
-
-                    b.Property<string>("SecurityStamp")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("security_stamp");
 
                     b.Property<string>("Surname")
                         .IsRequired()

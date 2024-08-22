@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 using Wms.Api.Authorization;
 using Wms.Api.DataAccess;
 using Wms.Api.Repositories;
@@ -34,6 +35,7 @@ public static class ServicesConfigurator
     }
 
     private static void ConfigureAuthentication() {
+        _services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
         _services
             .AddAuthenticationCookie(validFor: TimeSpan.FromMinutes(10))
             .AddAuthorization(options => {

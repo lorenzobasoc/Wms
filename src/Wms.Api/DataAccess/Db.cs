@@ -3,8 +3,12 @@ using File = Wms.Api.Entities.File;
 
 namespace Wms.Api.DataAccess;
 
-public class Db(DbContextOptions<Db> options) : DbContext(options)
+public class Db : DbContext
 {
+    public Db(DbContextOptions<Db> options) : base(options) {
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+    }
+
     public DbSet<User> Users { get; set; }   
     public DbSet<Booking> Bookings { get; set; }   
     public DbSet<File> Files { get; set; }   

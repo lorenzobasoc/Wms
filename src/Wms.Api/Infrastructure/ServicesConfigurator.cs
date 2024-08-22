@@ -1,5 +1,7 @@
-using FastEndpoints;
+using System.Security.Claims;
+using Wms.Api.Authorization;
 using Wms.Api.DataAccess;
+using Wms.Api.Repositories;
 
 namespace Wms.Api.Infrastructure;
 
@@ -11,12 +13,43 @@ public static class ServicesConfigurator
     public static void ConfigureServices(this WebApplicationBuilder builder) {
         InitializeServices(builder);
         ConfigureDatabase();
+        ConfigureConfiguration();
+        ConfigureRepos();
+        ConfigureAuthentication();
         ConfigureFastEndpoints();
     }
 
     private static void InitializeServices(WebApplicationBuilder builder) {
         _services = builder.Services;
         _config = new AppConfiguration(builder.Configuration);
+    }
+
+    private static void ConfigureRepos() {
+        _services
+            .AddTransient<AuthRepo>();
+    }
+
+    private static void ConfigureConfiguration() {
+        _services.AddSingleton(_config);
+    }
+
+    private static void ConfigureAuthentication() {
+        _services
+            .AddAuthenticationCookie(validFor: TimeSpan.FromMinutes(10))
+            .AddAuthorization(options => {
+                options.AddPolicy(
+                    Policies.USER_POLICY, 
+                    policy => policy
+                        .RequireAuthenticatedUser()
+                        .RequireAssertion(context =>
+                            context.User.Identities.Any(i => i.Claims.Any(c => c.Type == ClaimTypes.Role && Roles.ALL.Contains(c.Value)))));
+                options.AddPolicy(
+                    Policies.ADMIN_POLICY, 
+                    policy => policy
+                        .RequireAuthenticatedUser()
+                        .RequireAssertion(context =>
+                            context.User.Identities.Any(i => i.Claims.Any(c => c.Type == ClaimTypes.Role && c.Value == Roles.ADMIN))));
+            });
     }
 
     private static void ConfigureFastEndpoints() {
@@ -31,12 +64,6 @@ public static class ServicesConfigurator
             options => options
                 .UseNpgsql(connString)
                 .UseSnakeCaseNamingConvention(),
-            contextLifetime: ServiceLifetime.Scoped,
-            optionsLifetime: ServiceLifetime.Singleton);
-        _services.AddDbContextFactory<Db>(
-            options => options
-                .UseNpgsql(connString)
-                .UseSnakeCaseNamingConvention(),
-            lifetime: ServiceLifetime.Singleton);
+            contextLifetime: ServiceLifetime.Scoped);
     }
 }

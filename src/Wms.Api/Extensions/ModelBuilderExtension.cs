@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Wms.Api.DataAccess;
+namespace Wms.Api.Extensions;
 
 public static class ModelBuilderExtension
 {

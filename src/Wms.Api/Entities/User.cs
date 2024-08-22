@@ -15,5 +15,6 @@ public class User : DomainEntity
 
     public List<Booking> Bookings { get; set; }
 
-    public List<Invitation> Invitations { get; set; }
+    public List<Invitation> SentInvitations { get; set; }
+    public List<Invitation> ReceivedInvitations { get; set; }
 }

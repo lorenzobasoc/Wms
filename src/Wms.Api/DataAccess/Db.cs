@@ -1,8 +1,9 @@
+using Wms.Api.Extensions;
 using File = Wms.Api.Entities.File;
 
 namespace Wms.Api.DataAccess;
 
-public class Db(DbContextOptions options) : DbContext(options)
+public class Db(DbContextOptions<Db> options) : DbContext(options)
 {
     public DbSet<User> Users { get; set; }   
     public DbSet<Booking> Bookings { get; set; }   
@@ -21,11 +22,6 @@ public class Db(DbContextOptions options) : DbContext(options)
         ConfigureRooms(builder);
         ConfigureTables(builder);
         ConfigureSeats(builder);
-        ConfigureInvitations(builder);
-    }
-
-    private static void ConfigureInvitations(ModelBuilder builder) {
-
     }
 
     private static void ConfigureSeats(ModelBuilder builder) {
@@ -62,8 +58,8 @@ public class Db(DbContextOptions options) : DbContext(options)
     private static void ConfigureUsers(ModelBuilder builder) {
         builder.Entity<User>().HasIndex(u => u.Email).IsUnique();
         builder.OneToOne<User, File>(u => u.Photo, f => f.User);
-        builder.OneToMany<User, Invitation>(u => u.Invitations, i => i.ToUser);
-        builder.OneToMany<User, Invitation>(u => u.Invitations, i => i.FromUser);
+        builder.OneToMany<User, Invitation>(u => u.ReceivedInvitations, i => i.ToUser);
+        builder.OneToMany<User, Invitation>(u => u.SentInvitations, i => i.FromUser);
     }
 
     public override Task<int> SaveChangesAsync(CT ct = default) {

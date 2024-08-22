@@ -7,7 +7,7 @@ public class ConfirmEmail(AuthRepo authRepo) : EndpointWithoutRequest
     private readonly AuthRepo _authRepo = authRepo;
 
     public override void Configure() {
-        Put($"{ApiRoutes.Auth.ConfirmEmail}{ApiRoutes.IdParam}");
+        Put(ApiRoutes.Auth.ConfirmEmail + ApiRoutes.IdParam);
         AllowAnonymous();
     }
 

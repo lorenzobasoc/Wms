@@ -14,5 +14,6 @@ public class ApiRoutes
         public const string RegisterAdmin = _base + "/register-admin";
         public const string RegisterUser = _base + "/register-user";
         public const string ConfirmEmail = _base + "/confirm-email";
+        public const string ConfimWorkerAccount = _base + "/confirm-worker-account";
     }
 }

@@ -40,7 +40,7 @@ public static class ServicesConfigurator
             .AddAuthenticationCookie(validFor: TimeSpan.FromMinutes(10))
             .AddAuthorization(options => {
                 options.AddPolicy(
-                    Policies.USER_POLICY, 
+                    Policies.WORKER_POLICY, 
                     policy => policy
                         .RequireAuthenticatedUser()
                         .RequireAssertion(context =>

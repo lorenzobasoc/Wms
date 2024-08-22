@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 using Wms.Api.Authorization;
 
 namespace Wms.Api.Endpoints.Auth;

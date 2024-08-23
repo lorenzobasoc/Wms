@@ -3,9 +3,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Auth;
 
-public class Login(AuthRepo authRepo, IPasswordHasher<User> hasher) : Endpoint<LoginRequest>
+public class Login(UserRepo userRepo, IPasswordHasher<User> hasher) : Endpoint<LoginRequest>
 {
-    private readonly AuthRepo _authRepo = authRepo;
+    private readonly UserRepo _userRepo = userRepo;
     private readonly IPasswordHasher<User> _hasher = hasher;
 
     public override void Configure() {
@@ -14,7 +14,7 @@ public class Login(AuthRepo authRepo, IPasswordHasher<User> hasher) : Endpoint<L
     }
 
     public override async Task HandleAsync(LoginRequest req, CancellationToken ct) {
-        var user = await _authRepo.GetUser(req.Email);
+        var user = await _userRepo.GetUser(req.Email);
         if (user == null) {
             // HANDLE_ERROR -> utente non registrato 401 + mex ? 
         }

@@ -1,13 +1,14 @@
+using Wms.Api.Dtos.Users;
 using Wms.Api.Repositories;
 
-namespace Wms.Api.Endpoints.Auth;
+namespace Wms.Api.Endpoints.Users;
 
-public class ConfirmEmail(UserRepo userRepo) : EndpointWithoutRequest
+public class UserDetail(UserRepo userRepo) : EndpointWithoutRequest<UserDetailDto>
 {
     private readonly UserRepo _userRepo = userRepo;
 
     public override void Configure() {
-        Put(ApiRoutes.Auth.ConfirmEmail + ApiRoutes.IdParam);
+        Get(ApiRoutes.Users.UserDetail + ApiRoutes.IdParam);
         AllowAnonymous();
     }
 
@@ -15,10 +16,9 @@ public class ConfirmEmail(UserRepo userRepo) : EndpointWithoutRequest
         var userId = Route<Guid>(ApiRoutes.IdParam);
         var user = await _userRepo.GetUser(userId);
         if (user == null) {
-            // HANDLE_ERROR -> utente non registrato 401 + mex ? 
+            // HANDLE_ERROR -> utente non trovato 404 + mex 
         }
-        user.EmailConfirmed = true;
-        await _userRepo.Update(user);
-        await SendOkAsync(cancellation: ct);
+        var dto = user.ToUserDetail();
+        await SendAsync(dto, cancellation: ct);
     }
 }

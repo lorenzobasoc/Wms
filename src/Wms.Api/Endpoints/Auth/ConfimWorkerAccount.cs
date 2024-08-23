@@ -3,9 +3,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Auth;
 
-public class ConfimWorkerAccount(AuthRepo authRepo, IPasswordHasher<User> hasher) : Endpoint<ConfimWorkerAccountRequest>
+public class ConfimWorkerAccount(UserRepo userRepo, IPasswordHasher<User> hasher) : Endpoint<ConfimWorkerAccountRequest>
 {
-    private readonly AuthRepo _authRepo = authRepo;
+    private readonly UserRepo _userRepo = userRepo;
     private readonly IPasswordHasher<User> _hasher = hasher;
 
 
@@ -16,13 +16,13 @@ public class ConfimWorkerAccount(AuthRepo authRepo, IPasswordHasher<User> hasher
 
     public override async Task HandleAsync(ConfimWorkerAccountRequest req, CancellationToken ct) {
         var userId = Route<Guid>(ApiRoutes.IdParam);
-        var user = await _authRepo.GetUser(userId);
+        var user = await _userRepo.GetUser(userId);
         if (user == null) {
             // HANDLE_ERROR -> utente già registrato 401 + mex ? 
         }
         var hash = _hasher.HashPassword(user, req.Password);
         user.PasswordHash = hash;
-        await _authRepo.Update(user);
+        await _userRepo.Update(user);
         await SendOkAsync(cancellation: ct);
     }
 }

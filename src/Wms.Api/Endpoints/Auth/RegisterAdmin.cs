@@ -3,9 +3,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Auth;
 
-public class RegisterAdmin(AuthRepo authRepo, IPasswordHasher<User> hasher) : Endpoint<RegisterRequest>
+public class RegisterAdmin(UserRepo userRepo, IPasswordHasher<User> hasher) : Endpoint<RegisterRequest>
 {
-    private readonly AuthRepo _authRepo = authRepo;
+    private readonly UserRepo _userRepo = userRepo;
     private readonly IPasswordHasher<User> _hasher = hasher;
 
     public override void Configure() {
@@ -14,7 +14,7 @@ public class RegisterAdmin(AuthRepo authRepo, IPasswordHasher<User> hasher) : En
     }
 
     public override async Task HandleAsync(RegisterRequest req, CancellationToken ct) {
-        var user = await _authRepo.GetUser(req.Email);
+        var user = await _userRepo.GetUser(req.Email);
         if (user != null) {
             // HANDLE_ERROR -> utente già registrato 401 + mex ? 
         }
@@ -23,11 +23,11 @@ public class RegisterAdmin(AuthRepo authRepo, IPasswordHasher<User> hasher) : En
             Name = req.Name,
             Surname = req.Surname,
             Role = Authorization.Roles.ADMIN,
-            EmailConfirmed = true, // TODO: confirmation mail
+            EmailConfirmed = false,
         };
         var hash = _hasher.HashPassword(user, req.Password);
         user.PasswordHash = hash;
-        await _authRepo.Create(user);
+        await _userRepo.Create(user);
         await SendOkAsync(cancellation: ct);
     }
 }

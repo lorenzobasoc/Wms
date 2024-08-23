@@ -1,3 +1,5 @@
+using Wms.Api.Dtos.Users;
+
 namespace Wms.Api.Entities;
 
 public class User : DomainEntity
@@ -16,4 +18,14 @@ public class User : DomainEntity
 
     public List<Invitation> SentInvitations { get; set; }
     public List<Invitation> ReceivedInvitations { get; set; }
+
+    public UserDetailDto ToUserDetail() {
+        return new UserDetailDto {
+            Name = Name,
+            Surname = Surname,
+            Role = Role,
+            Email = Email,
+            Photo = Photo.Data,
+        };
+    }
 }

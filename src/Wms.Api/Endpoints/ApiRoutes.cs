@@ -25,4 +25,13 @@ public class ApiRoutes
         public const string Edit = _base + "/edit";
         public const string Delete = _base + "/delete";
     }
+
+    public class Floors
+    {
+        private const string _base = _api + "/floors";
+        public const string List = _base + "/list";
+        public const string Detail = _base + "/detail";
+        public const string Edit = _base + "/edit";
+        public const string Delete = _base + "/delete";
+    }
 }

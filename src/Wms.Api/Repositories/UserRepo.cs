@@ -29,6 +29,7 @@ public class UserRepo(AppConfiguration config, Db db) : BaseRepo(config, db)
 
     public async Task<List<User>> GetUsers(IEnumerable<string> roles) {
         var users = await _db.Users
+            .Where(u => !u.Disabled)
             .Where(u => roles.Contains(u.Role))
             .ToListAsync();
         return users;

@@ -24,6 +24,7 @@ public class RegisterAdmin(UserRepo userRepo, IPasswordHasher<User> hasher) : En
             Surname = req.Surname,
             Role = Authorization.Roles.ADMIN,
             EmailConfirmed = false,
+            Disabled = false,
         };
         var hash = _hasher.HashPassword(user, req.Password);
         user.PasswordHash = hash;

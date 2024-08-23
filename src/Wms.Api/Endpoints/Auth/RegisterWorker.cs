@@ -24,6 +24,7 @@ public class RegisterWorker(UserRepo userRepo) : Endpoint<RegisterWorkerRequest>
             Surname = req.Surname,
             Role = Authorization.Roles.WORKER,
             EmailConfirmed = false,
+            Disabled = false,
         };
         await _userRepo.Create(user);
         await SendOkAsync(cancellation: ct);

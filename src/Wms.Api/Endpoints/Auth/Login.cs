@@ -18,6 +18,9 @@ public class Login(UserRepo userRepo, IPasswordHasher<User> hasher) : Endpoint<L
         if (user == null) {
             // HANDLE_ERROR -> utente non registrato 401 + mex ? 
         }
+        if (user.Disabled) {
+            // HANDLE_ERROR -> utente disabilitato 401 + mex ?
+        }
         CheckPassword(user, user.PasswordHash, req.Password);
         await CookieAuth.SignInAsync(u => SetupLoggedUser(u, user));
         await SendOkAsync(cancellation: ct);

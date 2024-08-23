@@ -10,6 +10,8 @@ public class User : DomainEntity
     public string Email { get; set; }
     public bool EmailConfirmed { get; set; }
     public string? PasswordHash { get; set; }
+    public bool Disabled { get; set; }
+    public DateTime DisablingDate { get; set; }
 
     public File Photo { get; set; }
     public Guid? PhotoId { get; set; }

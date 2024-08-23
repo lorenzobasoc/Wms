@@ -14,13 +14,15 @@ public class ApiRoutes
         public const string RegisterAdmin = _base + "/register-admin";
         public const string RegisterWorker = _base + "/register-user";
         public const string ConfirmEmail = _base + "/confirm-email";
-        public const string ConfimWorkerAccount = _base + "/confirm-worker-account";
+        public const string ResetPassword = _base + "/reset-password";
     }
 
     public class Users
     {
         private const string _base = _api + "/users";
         public const string WorkersList = _base + "/workers-list";
-        public const string UserDetail = _base + "/user-detail";
+        public const string Detail = _base + "/detail";
+        public const string Edit = _base + "/edit";
+        public const string Delete = _base + "/delete";
     }
 }

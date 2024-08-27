@@ -1,3 +1,5 @@
+using Wms.Api.Dtos.Tables;
+
 namespace Wms.Api.Entities;
 
 public class Table : DomainEntity
@@ -14,4 +16,13 @@ public class Table : DomainEntity
     public List<Seat> Seats { get; set; }
 
     public List<Invitation> Invitations { get; set; }
+
+    public TableDetailDto ToTableDetail() {
+        return new TableDetailDto {
+            Seats = Seats
+                .Select(s => s.ToSeatDetail())
+                .ToArray(),
+            RoomId = RoomId,
+        };
+    }
 }

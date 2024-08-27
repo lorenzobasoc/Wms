@@ -9,7 +9,7 @@ public class Room : DomainEntity
     public bool IsMeetingRoom { get; set; }
     // public ? Position { get; set; }
     
-    public File Photo { get; set; }
+    public AppFile Photo { get; set; }
     public Guid? PhotoId { get; set; }
 
     public Floor Floor { get; set; }

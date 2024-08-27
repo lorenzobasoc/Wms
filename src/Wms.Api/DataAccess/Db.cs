@@ -1,5 +1,5 @@
 using Wms.Api.Extensions;
-using File = Wms.Api.Entities.File;
+using AppFile = Wms.Api.Entities.AppFile;
 
 namespace Wms.Api.DataAccess;
 
@@ -11,7 +11,7 @@ public class Db : DbContext
 
     public DbSet<User> Users { get; set; }   
     public DbSet<Booking> Bookings { get; set; }   
-    public DbSet<File> Files { get; set; }   
+    public DbSet<AppFile> Files { get; set; }   
     public DbSet<Floor> Floors { get; set; }   
     public DbSet<Room> Rooms { get; set; }   
     public DbSet<Table> Tables { get; set; }   
@@ -29,17 +29,17 @@ public class Db : DbContext
     }
 
     private static void ConfigureSeats(ModelBuilder builder) {
-        builder.OneToOne<Seat, File>(s => s.Photo, f => f.Seat);
+        builder.OneToOne<Seat, AppFile>(s => s.Photo, f => f.Seat);
     }
 
     private static void ConfigureTables(ModelBuilder builder) {
-        builder.OneToOne<Table, File>(t => t.Photo, f => f.Table);
+        builder.OneToOne<Table, AppFile>(t => t.Photo, f => f.Table);
         builder.OneToMany<Table, Invitation>(t => t.Invitations, i => i.Table);
         builder.OneToMany<Table, Seat>(t => t.Seats, s => s.Table);
     }
 
     private static void ConfigureRooms(ModelBuilder builder) {
-        builder.OneToOne<Room, File>(r => r.Photo, f => f.Room);
+        builder.OneToOne<Room, AppFile>(r => r.Photo, f => f.Room);
         builder.OneToMany<Room, Table>(r => r.Tables, t => t.Room);
     }
 
@@ -61,7 +61,7 @@ public class Db : DbContext
 
     private static void ConfigureUsers(ModelBuilder builder) {
         builder.Entity<User>().HasIndex(u => u.Email).IsUnique();
-        builder.OneToOne<User, File>(u => u.Photo, f => f.User);
+        builder.OneToOne<User, AppFile>(u => u.Photo, f => f.User);
         builder.OneToMany<User, Invitation>(u => u.ReceivedInvitations, i => i.ToUser);
         builder.OneToMany<User, Invitation>(u => u.SentInvitations, i => i.FromUser);
     }

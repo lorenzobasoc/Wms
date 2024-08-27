@@ -7,7 +7,7 @@ public class Table : DomainEntity
     public string Type { get; set; }
     // public ? Position { get; set; }
 
-    public File Photo { get; set; }
+    public AppFile Photo { get; set; }
     public Guid? PhotoId { get; set; }
 
     public Room Room { get; set; }

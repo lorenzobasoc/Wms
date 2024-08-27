@@ -1,6 +1,6 @@
 namespace Wms.Api.Entities;
 
-public class File : DomainEntity
+public class AppFile : DomainEntity
 {
     public string Type { get; set; }
     public string Title { get; set; }

@@ -13,7 +13,7 @@ public class User : DomainEntity
     public bool Disabled { get; set; }
     public DateTime DisablingDate { get; set; }
 
-    public File Photo { get; set; }
+    public AppFile Photo { get; set; }
     public Guid? PhotoId { get; set; }
 
     public List<Booking> Bookings { get; set; }

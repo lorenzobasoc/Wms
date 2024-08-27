@@ -18,7 +18,6 @@ public class DeleteSeat(SeatRepo seatRepo) : EndpointWithoutRequest
         if (seat == null) {
             // HANDLE_ERROR -> seat non trovato 404 + mex ? c'è single or throw
         }
-        
         await _seatRepo.Delete(seat);
         await SendOkAsync(cancellation: ct);
     }

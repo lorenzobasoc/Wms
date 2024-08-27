@@ -16,7 +16,6 @@ public class RoomRepo(AppConfiguration config, Db db) : BaseRepo(config, db)
             .Include(r => r.Photo)
             .Include(r => r.Tables)
                 .ThenInclude(t => t.Seats)
-                    .ThenInclude(s => s.Photo)
             .SingleOrThrowAsync(r => r.Id == id);
         return room;
     }

@@ -25,11 +25,6 @@ public class Db : DbContext
         ConfigureFloors(builder);
         ConfigureRooms(builder);
         ConfigureTables(builder);
-        ConfigureSeats(builder);
-    }
-
-    private static void ConfigureSeats(ModelBuilder builder) {
-        builder.OneToOne<Seat, AppFile>(s => s.Photo, f => f.Seat);
     }
 
     private static void ConfigureTables(ModelBuilder builder) {

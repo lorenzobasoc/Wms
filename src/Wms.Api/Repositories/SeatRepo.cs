@@ -11,12 +11,6 @@ public class SeatRepo(AppConfiguration config, Db db) : BaseRepo(config, db)
     }
 
     public async Task Create(List<Seat> seats) {
-        var photos = seats
-            .Select(s =>s.Photo)?
-            .ToList();
-        if (photos != null) {
-            _db.AppFiles.AddRange(photos);
-        }
         _db.Seats.AddRange(seats);
         await _db.SaveChangesAsync();
     }

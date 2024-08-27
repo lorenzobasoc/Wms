@@ -11,7 +11,6 @@ public class SeatDetaiDto
         return new Seat {
             TableId = tableId,
             Name = Name,
-            Photo = photo,
         };
     }
 }

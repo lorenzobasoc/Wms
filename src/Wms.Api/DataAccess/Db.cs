@@ -11,7 +11,7 @@ public class Db : DbContext
 
     public DbSet<User> Users { get; set; }   
     public DbSet<Booking> Bookings { get; set; }   
-    public DbSet<AppFile> Files { get; set; }   
+    public DbSet<AppFile> AppFiles { get; set; }   
     public DbSet<Floor> Floors { get; set; }   
     public DbSet<Room> Rooms { get; set; }   
     public DbSet<Table> Tables { get; set; }   

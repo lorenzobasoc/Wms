@@ -23,7 +23,7 @@ public class RoomRepo(AppConfiguration config, Db db) : BaseRepo(config, db)
 
     public async Task Create(Room room) {
         if (room.Photo != null) {
-            _db.Files.Add(room.Photo);
+            _db.AppFiles.Add(room.Photo);
         }
         _db.Rooms.Add(room);
         await _db.SaveChangesAsync();

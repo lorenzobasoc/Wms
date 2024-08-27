@@ -45,4 +45,14 @@ public class ApiRoutes
         public const string Edit = _base + "/edit";
         public const string Delete = _base + "/delete";
     }
+
+    public class Tables
+    {
+        private const string _base = _api + "/tables";
+        public const string List = _base + "/list";
+        public const string Detail = _base + "/detail";
+        public const string DetailWithSeats = _base + "/detail-with-seats";
+        public const string Edit = _base + "/edit";
+        public const string Delete = _base + "/delete";
+    }
 }

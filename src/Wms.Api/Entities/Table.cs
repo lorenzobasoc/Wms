@@ -19,7 +19,7 @@ public class Table : DomainEntity
 
     public TableDetailDto ToTableDetail() {
         return new TableDetailDto {
-            Seats = Seats
+            Seats = Seats?
                 .Select(s => s.ToSeatDetail())
                 .ToArray(),
             RoomId = RoomId,

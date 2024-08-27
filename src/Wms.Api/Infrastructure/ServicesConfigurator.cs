@@ -29,6 +29,8 @@ public static class ServicesConfigurator
         _services
             .AddTransient<FloorRepo>()
             .AddTransient<RoomRepo>()
+            .AddTransient<SeatRepo>()
+            .AddTransient<TableRepo>()
             .AddTransient<UserRepo>();
     }
 

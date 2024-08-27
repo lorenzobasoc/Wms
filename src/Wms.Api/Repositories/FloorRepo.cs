@@ -6,7 +6,7 @@ namespace Wms.Api.Repositories;
 
 public class FloorRepo(AppConfiguration config, Db db) : BaseRepo(config, db)
 {
-    public async Task<Floor> GetFloor(Guid id) {
+    public async Task<Floor> Find(Guid id) {
         var floor = await _db.Floors
             .Include(f => f.Rooms)
             .SingleOrThrowAsync(f => f.Id == id);
@@ -28,7 +28,7 @@ public class FloorRepo(AppConfiguration config, Db db) : BaseRepo(config, db)
         await _db.SaveChangesAsync();
     }
 
-    public async Task<List<Floor>> GetFloors() {
+    public async Task<List<Floor>> List() {
         var floors = await _db.Floors.ToListAsync();
         return floors;
     }

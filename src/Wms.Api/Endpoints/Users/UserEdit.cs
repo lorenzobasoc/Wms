@@ -15,7 +15,7 @@ public class UserEdit(UserRepo userRepo) : Endpoint<UserEditDto>
 
     public override async Task HandleAsync(UserEditDto req, CancellationToken ct) {
         var userId = Route<Guid>(ApiRoutes.IdParam);
-        var user = await _userRepo.GetUser(userId);
+        var user = await _userRepo.Find(userId);
         if (user == null) {
             // HANDLE_ERROR -> utente non registrato 401 + mex ? 
         }

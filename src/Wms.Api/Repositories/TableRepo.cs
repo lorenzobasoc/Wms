@@ -14,7 +14,7 @@ public class TableRepo(AppConfiguration config, Db db) : BaseRepo(config, db)
         await _db.SaveChangesAsync();
     }
 
-    public async Task<Table> GetTable(Guid tableId) {
+    public async Task<Table> Find(Guid tableId) {
         var table = await _db.Tables
             .Include(t => t.Seats)
             .SingleOrThrowAsync(t => t.Id == tableId);

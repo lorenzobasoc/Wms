@@ -15,7 +15,7 @@ public class FloorDetail(FloorRepo floorRepo) : EndpointWithoutRequest<FloorDeta
 
     public override async Task HandleAsync(CancellationToken ct) {
         var floorId = Route<Guid>(ApiRoutes.IdParam);
-        var floor = await _floorRepo.GetFloor(floorId);
+        var floor = await _floorRepo.Find(floorId);
         if (floor == null) {
             // HANDLE_ERROR -> utente non trovato 404 + mex occhio che c'è il SingleOrThrow
         }

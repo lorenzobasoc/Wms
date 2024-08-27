@@ -14,7 +14,7 @@ public class WorkerList(UserRepo userRepo) : EndpointWithoutRequest<ListItemDto[
     }
 
     public override async Task<ListItemDto[]> HandleAsync(CancellationToken ct) {
-        var users = await _userRepo.GetUsers([Authorization.Roles.WORKER]);
+        var users = await _userRepo.List([Authorization.Roles.WORKER]);
         var res = users
             .Select(u => new ListItemDto {
                 Id = u.Id,

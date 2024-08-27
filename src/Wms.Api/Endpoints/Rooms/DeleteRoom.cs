@@ -14,7 +14,7 @@ public class DeleteRoom(RoomRepo roomRepo) : EndpointWithoutRequest
 
     public override async Task HandleAsync(CancellationToken ct) {
         var roomId = Route<Guid>(ApiRoutes.IdParam);
-        var room = await _roomRepo.GetRoomInfo(roomId);
+        var room = await _roomRepo.Find(roomId);
         if (room == null) {
             // HANDLE_ERROR -> room non trovato 404 + mex ? c'è single or throw
         }

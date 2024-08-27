@@ -17,7 +17,7 @@ public class ResetPassword(UserRepo userRepo, IPasswordHasher<User> hasher) : En
 
     public override async Task HandleAsync(SetPasswordDto req, CancellationToken ct) {
         var userId = Route<Guid>(ApiRoutes.IdParam);
-        var user = await _userRepo.GetUser(userId);
+        var user = await _userRepo.Find(userId);
         if (user == null) {
             // HANDLE_ERROR -> utente già registrato 401 + mex ? 
         }

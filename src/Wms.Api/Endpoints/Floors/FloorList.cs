@@ -14,7 +14,7 @@ public class FloorList(FloorRepo floorRepo) : EndpointWithoutRequest<ListItemDto
     }
 
     public override async Task<ListItemDto[]> HandleAsync(CancellationToken ct) {
-        var floors = await _floorRepo.GetFloors();
+        var floors = await _floorRepo.List();
         var res = floors
             .Select(u => new ListItemDto {
                 Id = u.Id,

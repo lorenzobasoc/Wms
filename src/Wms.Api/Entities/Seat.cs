@@ -11,8 +11,8 @@ public class Seat : DomainEntity
 
     public List<Booking> Bookings { get; set; }
 
-    public SeatDetaiDto ToSeatDetail() {
-        return new SeatDetaiDto {
+    public SeatDetailDto ToSeatDetail() {
+        return new SeatDetailDto {
             Name = Name,
             TableId = TableId,
         };

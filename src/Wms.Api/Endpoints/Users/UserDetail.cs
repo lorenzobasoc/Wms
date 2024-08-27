@@ -15,7 +15,7 @@ public class UserDetail(UserRepo userRepo) : EndpointWithoutRequest<UserDetailDt
 
     public override async Task HandleAsync(CancellationToken ct) {
         var userId = Route<Guid>(ApiRoutes.IdParam);
-        var user = await _userRepo.GetUser(userId);
+        var user = await _userRepo.Find(userId);
         if (user == null) {
             // HANDLE_ERROR -> utente non trovato 404 + mex 
         }

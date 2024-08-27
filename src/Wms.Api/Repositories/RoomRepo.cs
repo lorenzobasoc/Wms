@@ -6,12 +6,12 @@ namespace Wms.Api.Repositories;
 
 public class RoomRepo(AppConfiguration config, Db db) : BaseRepo(config, db)
 {
-    public async Task<Room> GetRoomInfo(Guid id) {
+    public async Task<Room> Find(Guid id) {
         var room = await _db.Rooms.SingleOrThrowAsync(r => r.Id == id);
         return room;
     }
     
-    public async Task<Room> GetRoomWithSeats(Guid id) {
+    public async Task<Room> FindWithSeats(Guid id) {
         var room = await _db.Rooms
             .Include(r => r.Photo)
             .Include(r => r.Tables)
@@ -38,7 +38,7 @@ public class RoomRepo(AppConfiguration config, Db db) : BaseRepo(config, db)
         await _db.SaveChangesAsync();
     }
 
-    public async Task<List<Room>> GetRooms(Guid floorId) {
+    public async Task<List<Room>> List(Guid floorId) {
         var rooms = await _db.Rooms
             .Where(r => r.FloorId == floorId)
             .ToListAsync();

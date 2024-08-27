@@ -14,7 +14,7 @@ public class DeleteTable(TableRepo tableRepo) : EndpointWithoutRequest
 
     public override async Task HandleAsync(CancellationToken ct) {
         var tableId = Route<Guid>(ApiRoutes.IdParam);
-        var table = await _tableRepo.GetTable(tableId);
+        var table = await _tableRepo.Find(tableId);
         if (table == null) {
             // HANDLE_ERROR -> table non trovato 404 + mex ? c'è single or throw
         }

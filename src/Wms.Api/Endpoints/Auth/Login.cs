@@ -14,7 +14,7 @@ public class Login(UserRepo userRepo, IPasswordHasher<User> hasher) : Endpoint<L
     }
 
     public override async Task HandleAsync(LoginRequest req, CancellationToken ct) {
-        var user = await _userRepo.GetUser(req.Email);
+        var user = await _userRepo.Find(req.Email);
         if (user == null) {
             // HANDLE_ERROR -> utente non registrato 401 + mex ? 
         }

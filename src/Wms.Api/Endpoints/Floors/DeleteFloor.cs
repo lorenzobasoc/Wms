@@ -14,7 +14,7 @@ public class DeleteFloor(FloorRepo floorRepo) : EndpointWithoutRequest
 
     public override async Task HandleAsync(CancellationToken ct) {
         var floorId = Route<Guid>(ApiRoutes.IdParam);
-        var floor = await _floorRepo.GetFloor(floorId);
+        var floor = await _floorRepo.Find(floorId);
         if (floor == null) {
             // HANDLE_ERROR -> floor non trovato 404 + mex ? c'è single or throw
         }

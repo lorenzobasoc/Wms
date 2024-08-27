@@ -15,7 +15,7 @@ public class FloorEdit(FloorRepo floorRepo) : Endpoint<FloorEditDto>
 
     public override async Task HandleAsync(FloorEditDto req, CancellationToken ct) {
         var floorId = Route<Guid>(ApiRoutes.IdParam);
-        var floor = await _floorRepo.GetFloor(floorId);
+        var floor = await _floorRepo.Find(floorId);
         if (floor == null) {
             // HANDLE_ERROR -> utente non registrato 401 + mex ? 
         }

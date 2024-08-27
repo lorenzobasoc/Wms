@@ -15,7 +15,7 @@ public class RoomList(RoomRepo roomRepo) : EndpointWithoutRequest<ListItemDto[]>
 
     public override async Task<ListItemDto[]> HandleAsync(CancellationToken ct) {
         var floorId = Route<Guid>(ApiRoutes.FloorIdParam);
-        var rooms = await _roomRepo.GetRooms(floorId);
+        var rooms = await _roomRepo.List(floorId);
         var res = rooms
             .Select(u => new ListItemDto {
                 Id = u.Id,

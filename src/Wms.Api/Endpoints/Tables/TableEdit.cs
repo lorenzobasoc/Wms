@@ -15,7 +15,7 @@ public class TableEdit(TableRepo tableRepo) : Endpoint<TableDetailDto>
 
     public override async Task HandleAsync(TableDetailDto req, CancellationToken ct) {
         var tableId = Route<Guid>(ApiRoutes.IdParam);
-        var table = await _tableRepo.GetTable(tableId);
+        var table = await _tableRepo.Find(tableId);
         if (table == null) {
             // HANDLE_ERROR -> utente non registrato 401 + mex ? 
         }

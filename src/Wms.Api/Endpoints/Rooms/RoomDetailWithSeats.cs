@@ -15,7 +15,7 @@ public class RoomDetailWithSeats(RoomRepo roomRepo) : EndpointWithoutRequest<Roo
 
     public override async Task HandleAsync(CancellationToken ct) {
         var roomId = Route<Guid>(ApiRoutes.IdParam);
-        var room = await _roomRepo.GetRoomWithSeats(roomId);
+        var room = await _roomRepo.FindWithSeats(roomId);
         if (room == null) {
             // HANDLE_ERROR -> utente non trovato 404 + mex occhio che c'è il SingleOrThrow
         }

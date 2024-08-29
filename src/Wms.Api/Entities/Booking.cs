@@ -18,4 +18,12 @@ public class Booking : DomainEntity
     public Guid? RoomId { get; set; }
 
     public List<Invitation> Invitations { get; set; }
+
+    public bool IsActive() {
+        return EndDate.CompareTo(DateTime.Now) < 0;
+    }
+
+    public bool IsClosed() {
+        return EndDate.CompareTo(DateTime.Now) >= 0;
+    }
 }

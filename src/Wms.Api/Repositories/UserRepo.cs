@@ -1,4 +1,5 @@
 using Wms.Api.DataAccess;
+using Wms.Api.Extensions;
 using Wms.Api.Infrastructure;
 
 namespace Wms.Api.Repositories;
@@ -33,5 +34,10 @@ public class UserRepo(AppConfiguration config, Db db) : BaseRepo(config, db)
             .Where(u => roles.Contains(u.Role))
             .ToListAsync();
         return users;
+    }
+
+    public async Task<Guid> GetUserId(string? email) {
+        var users = await _db.Users.SingleOrThrowAsync(u => u.Email == email);
+        return users.Id;
     }
 }

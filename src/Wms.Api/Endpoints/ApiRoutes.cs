@@ -63,4 +63,14 @@ public class ApiRoutes
         public const string Edit = _base + "/edit";
         public const string Delete = _base + "/delete";
     }
+
+    public class Bookings
+    {
+        private const string _base = _api + "/bookings";
+        public const string List = _base + "/list";
+        public const string ListActives = _base + "/list-actives";
+        public const string ListClosed = _base + "/list-closed";
+        public const string Edit = _base + "/edit";
+        public const string Delete = _base + "/delete";
+    }
 }

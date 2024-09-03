@@ -22,7 +22,7 @@ public class RegisterAdmin(UserRepo userRepo, IPasswordHasher<User> hasher) : En
             Email = req.Email,
             Name = req.Name,
             Surname = req.Surname,
-            Role = Authorization.Roles.ADMIN,
+            Role = Constants.Authorization.Roles.ADMIN,
             EmailConfirmed = false,
             Disabled = false,
         };

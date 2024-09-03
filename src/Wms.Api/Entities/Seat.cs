@@ -9,7 +9,7 @@ public class Seat : DomainEntity
     public Table Table { get; set; }
     public Guid TableId { get; set; }
 
-    public List<Booking> Bookings { get; set; }
+    public List<SeatBooking> Bookings { get; set; }
 
     public SeatDetailDto ToSeatDetail() {
         return new SeatDetailDto {

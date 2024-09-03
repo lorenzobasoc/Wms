@@ -1,3 +1,5 @@
+using Wms.Api.Dtos.Invitations;
+
 namespace Wms.Api.Entities;
 
 public class Invitation : DomainEntity
@@ -16,4 +18,15 @@ public class Invitation : DomainEntity
 
     public Booking Booking { get; set; }
     public Guid? BookingId { get; set; }
+
+    public InvitationDetailDto ToinvitationDetailDto() {
+        return new InvitationDetailDto {
+            Message = Message,
+            Outcome = Outcome,
+            FromUserId = FromUserId,
+            ToUserId = ToUserId,
+            TableId = TableId,
+            BookingId = BookingId,
+        };
+    }
 }

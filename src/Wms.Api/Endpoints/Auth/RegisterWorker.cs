@@ -22,7 +22,7 @@ public class RegisterWorker(UserRepo userRepo) : Endpoint<RegisterWorkerRequest>
             Email = req.Email,
             Name = req.Name,
             Surname = req.Surname,
-            Role = Authorization.Roles.WORKER,
+            Role = Constants.Authorization.Roles.WORKER,
             EmailConfirmed = false,
             Disabled = false,
         };

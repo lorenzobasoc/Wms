@@ -68,6 +68,7 @@ public class ApiRoutes
     {
         private const string _base = _api + "/bookings";
         public const string List = _base + "/list";
+        public const string Detail = _base + "/detail";
         public const string ListActives = _base + "/list-actives";
         public const string ListClosed = _base + "/list-closed";
         public const string Edit = _base + "/edit";

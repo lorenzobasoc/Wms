@@ -16,7 +16,7 @@ public class User : DomainEntity
     public AppFile Photo { get; set; }
     public Guid? PhotoId { get; set; }
 
-    public List<Booking> Bookings { get; set; }
+    public List<UserBooking> Bookings { get; set; }
 
     public List<Invitation> SentInvitations { get; set; }
     public List<Invitation> ReceivedInvitations { get; set; }

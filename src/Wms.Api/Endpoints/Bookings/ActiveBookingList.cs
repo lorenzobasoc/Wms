@@ -4,7 +4,7 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Bookings;
 
-public class ActiveBookingList(BookingRepo bookingRepo, UserRepo userRepo) : EndpointWithoutRequest<BookingDetailDto[]>
+public class ActiveBookingList(BookingRepo bookingRepo, UserRepo userRepo) : EndpointWithoutRequest<List<BookingDetailDto>>
 {
     private readonly BookingRepo _bookingRepo = bookingRepo;
     private readonly UserRepo _userRepo = userRepo;
@@ -14,19 +14,12 @@ public class ActiveBookingList(BookingRepo bookingRepo, UserRepo userRepo) : End
         Policies(AppPolicies.WORKER_POLICY);
     }
 
-    public override async Task<BookingDetailDto[]> HandleAsync(CancellationToken ct) {
+    public override async Task<List<BookingDetailDto>> HandleAsync(CancellationToken ct) {
         var userId = await _userRepo.GetUserId(User.Identity.Name);
         var bookings = await _bookingRepo.ListActives(userId);
         var res = bookings
-            .Select(u => new BookingDetailDto {
-                Title = u.Title,
-                Note = u.Note,
-                StartDate = u.StartDate,
-                EndDate = u.EndDate,
-                SeatId = u.SeatId,
-                RoomId = u.RoomId,
-            })
-            .ToArray();
+            .Select(u => u.ToBookingDetail())
+            .ToList();
         return res;
     }
 }

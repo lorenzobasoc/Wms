@@ -43,13 +43,13 @@ public class Db : DbContext
     }
 
     private static void ConfigureBookings(ModelBuilder builder) {
-        builder.ManyToMany<User, Booking, Seat>(
+        builder.ManyToMany<User, UserBooking, Booking>(
             b => b.User, u => u.Bookings, 
-            b => b.Seat, s => s.Bookings
+            b => b.Booking, s => s.Users
         );
-        builder.ManyToMany<User, Booking, Room>(
-            b => b.User, u => u.Bookings, 
-            b => b.Room, s => s.Bookings
+        builder.ManyToMany<Seat, SeatBooking, Booking>(
+            b => b.Seat, u => u.Bookings, 
+            b => b.Booking, s => s.Seats
         );
         builder.OneToMany<Booking, Invitation>(b => b.Invitations, i => i.Booking);
     }

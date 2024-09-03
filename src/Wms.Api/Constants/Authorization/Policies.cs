@@ -1,4 +1,4 @@
-namespace Wms.Api.Authorization;
+namespace Wms.Api.Constants.Authorization;
 
 public class AppPolicies
 {

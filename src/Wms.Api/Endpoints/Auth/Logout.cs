@@ -1,4 +1,4 @@
-using Wms.Api.Authorization;
+using Wms.Api.Constants.Authorization;
 
 namespace Wms.Api.Endpoints.Auth;
 

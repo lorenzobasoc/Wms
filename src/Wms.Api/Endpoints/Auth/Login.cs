@@ -37,6 +37,7 @@ public class Login(UserRepo userRepo, IPasswordHasher<User> hasher) : Endpoint<L
         up.Roles.Add(user.Role);
         up.Claims.Add(new("Address", "123 Street"));
         up[nameof(user.Email)] = user.Email;
+        up[nameof(user.Name)] = user.Email;
     }
 }
 

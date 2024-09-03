@@ -1,4 +1,4 @@
-using Wms.Api.Authorization;
+using Wms.Api.Constants.Authorization;
 using Wms.Api.Dtos.Bookings;
 using Wms.Api.Repositories;
 

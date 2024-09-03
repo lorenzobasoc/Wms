@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
-using Wms.Api.Authorization;
+using Wms.Api.Constants.Authorization;
 using Wms.Api.DataAccess;
 using Wms.Api.Repositories;
 

@@ -32,6 +32,7 @@ public static class ServicesConfigurator
             .AddTransient<SeatRepo>()
             .AddTransient<TableRepo>()
             .AddTransient<BookingRepo>()
+            .AddTransient<InvitationRepo>()
             .AddTransient<UserRepo>();
     }
 

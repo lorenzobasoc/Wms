@@ -25,6 +25,6 @@ public class UserEdit(UserRepo userRepo) : Endpoint<UserEditDto>
     }
 
     private static void UpdateProperties(User user, UserEditDto req) {
-        user.Photo.Data = req.Photo;
+        user.Photo.Data = req.Photo ?? user.Photo.Data;
     }
 }

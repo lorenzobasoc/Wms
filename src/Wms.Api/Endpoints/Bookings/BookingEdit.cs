@@ -30,13 +30,17 @@ public class BookingEdit : Endpoint<BookingEditDto>
     }
 
     private static void UpdateProperties(Booking booking, BookingEditDto req) {
-        booking.Title = req.Title;
-        booking.Note = req.Note;
-        booking.Seats = req.Seats
-            .Select(s => s.ToEntity())
-            .ToList();
-        booking.Users = req.Users
-            .Select(u => u.ToEntity())
-            .ToList();
+        booking.Title = req.Title ?? booking.Title;
+        booking.Note = req.Note ?? booking.Note;
+        booking.Seats = req.Seats == null 
+            ? booking.Seats 
+            : req.Seats
+                .Select(s => s.ToEntity())
+                .ToList();
+        booking.Users = req.Users == null
+            ? booking.Users
+            : req.Users
+                .Select(u => u.ToEntity())
+                .ToList();
     }
 }

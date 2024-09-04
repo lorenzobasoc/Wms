@@ -25,7 +25,7 @@ public class FloorEdit(FloorRepo floorRepo) : Endpoint<FloorEditDto>
     }
 
     private static void UpdateProperties(Floor floor, FloorEditDto req) {
-        floor.Name = req.Name;
-        floor.Description = req.Description;
+        floor.Name = req.Name ?? floor.Name;
+        floor.Description = req.Description ?? floor.Description;
     }
 }

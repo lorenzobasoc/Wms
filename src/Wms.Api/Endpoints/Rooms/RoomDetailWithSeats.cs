@@ -4,9 +4,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Rooms;
 
-public class RoomDetailWithSeats(RoomRepo roomRepo) : EndpointWithoutRequest<RoomDetailDto>
+public class RoomDetailWithSeats : EndpointWithoutRequest<RoomDetailDto>
 {
-    private readonly RoomRepo _roomRepo = roomRepo;
+    public RoomRepo RoomRepo { get; set; }
 
     public override void Configure() {
         Get(ApiRoutes.Rooms.DetailWithSeats + ApiRoutes.IdParam);
@@ -15,7 +15,7 @@ public class RoomDetailWithSeats(RoomRepo roomRepo) : EndpointWithoutRequest<Roo
 
     public override async Task HandleAsync(CancellationToken ct) {
         var roomId = Route<Guid>(ApiRoutes.IdParam);
-        var room = await _roomRepo.FindWithSeats(roomId);
+        var room = await RoomRepo.FindWithSeats(roomId);
         if (room == null) {
             // HANDLE_ERROR -> utente non trovato 404 + mex occhio che c'è il SingleOrThrow
         }

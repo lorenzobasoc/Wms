@@ -4,9 +4,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Seats;
 
-public class CreateSeat(SeatRepo seatRepo) : Endpoint<SeatDetailDto>
+public class CreateSeat : Endpoint<SeatDetailDto>
 {
-    private readonly SeatRepo _seatRepo = seatRepo;
+    public SeatRepo SeatRepo { get; set; }
 
     public override void Configure() {
         Post(ApiRoutes.Seats.Edit);
@@ -15,7 +15,7 @@ public class CreateSeat(SeatRepo seatRepo) : Endpoint<SeatDetailDto>
 
     public override async Task HandleAsync(SeatDetailDto req, CancellationToken ct) {
         var seat = req.ToEntity(req.TableId);
-        await _seatRepo.Create(seat);
+        await SeatRepo.Create(seat);
         await SendOkAsync(cancellation: ct);
     }
 }

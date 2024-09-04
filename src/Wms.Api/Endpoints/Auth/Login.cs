@@ -1,20 +1,21 @@
 using Microsoft.AspNetCore.Identity;
+using Wms.Api.Dtos.Auth;
 using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Auth;
 
-public class Login(UserRepo userRepo, IPasswordHasher<User> hasher) : Endpoint<LoginRequest>
+public class Login : Endpoint<LoginDto>
 {
-    private readonly UserRepo _userRepo = userRepo;
-    private readonly IPasswordHasher<User> _hasher = hasher;
+    public UserRepo UserRepo { get; set; }
+    public IPasswordHasher<User> Hasher { get; set; }
 
     public override void Configure() {
         Post(ApiRoutes.Auth.Login);
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(LoginRequest req, CancellationToken ct) {
-        var user = await _userRepo.Find(req.Email);
+    public override async Task HandleAsync(LoginDto req, CancellationToken ct) {
+        var user = await UserRepo.Find(req.Email);
         if (user == null) {
             // HANDLE_ERROR -> utente non registrato 401 + mex ? 
         }
@@ -27,7 +28,7 @@ public class Login(UserRepo userRepo, IPasswordHasher<User> hasher) : Endpoint<L
     }
 
     private void CheckPassword(User user, string hashedPassword, string providedPassword) {
-        var result = _hasher.VerifyHashedPassword(user, hashedPassword, providedPassword);
+        var result = Hasher.VerifyHashedPassword(user, hashedPassword, providedPassword);
         if (result != PasswordVerificationResult.Success) {
             // HANDLE_ERROR -> password errata 401 + mex ? 
         }
@@ -41,8 +42,3 @@ public class Login(UserRepo userRepo, IPasswordHasher<User> hasher) : Endpoint<L
     }
 }
 
-public class LoginRequest
-{
-    public string Email { get; set; }
-    public string Password { get; set; }
-}

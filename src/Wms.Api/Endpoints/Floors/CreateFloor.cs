@@ -4,9 +4,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Floors;
 
-public class CreateFloor(FloorRepo floorRepo) : Endpoint<FloorEditDto>
+public class CreateFloor : Endpoint<FloorEditDto>
 {
-    private readonly FloorRepo _floorRepo = floorRepo;
+    public FloorRepo FloorRepo { get; set; } 
 
     public override void Configure() {
         Post(ApiRoutes.Floors.Edit);
@@ -15,7 +15,7 @@ public class CreateFloor(FloorRepo floorRepo) : Endpoint<FloorEditDto>
 
     public override async Task HandleAsync(FloorEditDto req, CancellationToken ct) {
         var floor = req.ToEntity();
-        await _floorRepo.Create(floor);
+        await FloorRepo.Create(floor);
         await SendOkAsync(cancellation: ct);
     }
 }

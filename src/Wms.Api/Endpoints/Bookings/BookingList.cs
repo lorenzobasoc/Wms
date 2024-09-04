@@ -4,9 +4,10 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Bookings;
 
-public class BookingList(BookingRepo bookingRepo) : EndpointWithoutRequest<List<BookingDetailDto>>
+public class BookingList : EndpointWithoutRequest<List<BookingDetailDto>>
 {
-    private readonly BookingRepo _bookingRepo = bookingRepo;
+    public BookingRepo BookingRepo { get; set; }
+
 
     public override void Configure() {
         Get(ApiRoutes.Bookings.List);
@@ -14,7 +15,7 @@ public class BookingList(BookingRepo bookingRepo) : EndpointWithoutRequest<List<
     }
 
     public override async Task<List<BookingDetailDto>> HandleAsync(CancellationToken ct) {
-        var bookings = await _bookingRepo.List();
+        var bookings = await BookingRepo.List();
         var res = bookings
             .Select(u => u.ToBookingDetail())
             .ToList();

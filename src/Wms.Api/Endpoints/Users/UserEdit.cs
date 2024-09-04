@@ -4,9 +4,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Users;
 
-public class UserEdit(UserRepo userRepo) : Endpoint<UserEditDto>
+public class UserEdit : Endpoint<UserEditDto>
 {
-    private readonly UserRepo _userRepo = userRepo;
+    public UserRepo UserRepo { get; set; }
 
     public override void Configure() {
         Put(ApiRoutes.Users.Edit + ApiRoutes.IdParam);
@@ -15,12 +15,12 @@ public class UserEdit(UserRepo userRepo) : Endpoint<UserEditDto>
 
     public override async Task HandleAsync(UserEditDto req, CancellationToken ct) {
         var userId = Route<Guid>(ApiRoutes.IdParam);
-        var user = await _userRepo.Find(userId);
+        var user = await UserRepo.Find(userId);
         if (user == null) {
             // HANDLE_ERROR -> utente non registrato 401 + mex ? 
         }
         UpdateProperties(user, req);
-        await _userRepo.Update(user);
+        await UserRepo.Update(user);
         await SendOkAsync(cancellation: ct);
     }
 

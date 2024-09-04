@@ -1,20 +1,21 @@
 using Microsoft.AspNetCore.Identity;
+using Wms.Api.Dtos.Auth;
 using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Auth;
 
-public class RegisterAdmin(UserRepo userRepo, IPasswordHasher<User> hasher) : Endpoint<RegisterRequest>
+public class RegisterAdmin : Endpoint<RegisterDto>
 {
-    private readonly UserRepo _userRepo = userRepo;
-    private readonly IPasswordHasher<User> _hasher = hasher;
+    public UserRepo UserRepo { get; set; }
+    public IPasswordHasher<User> Hasher { get; set; }
 
     public override void Configure() {
         Post(ApiRoutes.Auth.RegisterAdmin);
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(RegisterRequest req, CancellationToken ct) {
-        var user = await _userRepo.Find(req.Email);
+    public override async Task HandleAsync(RegisterDto req, CancellationToken ct) {
+        var user = await UserRepo.Find(req.Email);
         if (user != null) {
             // HANDLE_ERROR -> utente già registrato 401 + mex ? 
         }
@@ -26,18 +27,9 @@ public class RegisterAdmin(UserRepo userRepo, IPasswordHasher<User> hasher) : En
             EmailConfirmed = false,
             Disabled = false,
         };
-        var hash = _hasher.HashPassword(user, req.Password);
+        var hash = Hasher.HashPassword(user, req.Password);
         user.PasswordHash = hash;
-        await _userRepo.Create(user);
+        await UserRepo.Create(user);
         await SendOkAsync(cancellation: ct);
     }
-}
-
-public class RegisterRequest
-{
-    public string Name { get; set; }
-    public string Surname { get; set; }
-    public string Email { get; set; }
-    public string Password { get; set; }
-    public string ConfirmPassword { get; set; }
 }

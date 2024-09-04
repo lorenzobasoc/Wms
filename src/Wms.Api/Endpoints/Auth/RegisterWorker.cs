@@ -1,20 +1,20 @@
 using Wms.Api.Constants.Authorization;
+using Wms.Api.Dtos.Auth;
 using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Auth;
 
-public class RegisterWorker(UserRepo userRepo) : Endpoint<RegisterWorkerRequest>
+public class RegisterWorker : Endpoint<RegisterWorkerDto>
 {
-    private readonly UserRepo _userRepo = userRepo;
+    public UserRepo UserRepo { get; set; }
 
     public override void Configure() {
         Post(ApiRoutes.Auth.RegisterWorker);
         Policies(AppPolicies.ADMIN_POLICY);
-
     }
 
-    public override async Task HandleAsync(RegisterWorkerRequest req, CancellationToken ct) {
-        var user = await _userRepo.Find(req.Email);
+    public override async Task HandleAsync(RegisterWorkerDto req, CancellationToken ct) {
+        var user = await UserRepo.Find(req.Email);
         if (user != null) {
             // HANDLE_ERROR -> utente già registrato 401 + mex ? 
         }
@@ -26,14 +26,7 @@ public class RegisterWorker(UserRepo userRepo) : Endpoint<RegisterWorkerRequest>
             EmailConfirmed = false,
             Disabled = false,
         };
-        await _userRepo.Create(user);
+        await UserRepo.Create(user);
         await SendOkAsync(cancellation: ct);
     }
-}
-
-public class RegisterWorkerRequest
-{
-    public string Name { get; set; }
-    public string Surname { get; set; }
-    public string Email { get; set; }
 }

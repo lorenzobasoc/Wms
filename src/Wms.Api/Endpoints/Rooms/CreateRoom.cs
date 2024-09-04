@@ -4,9 +4,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Rooms;
 
-public class CreateRoom(RoomRepo roomRepo) : Endpoint<RoomEditDto>
+public class CreateRoom : Endpoint<RoomEditDto>
 {
-    private readonly RoomRepo _roomRepo = roomRepo;
+    public RoomRepo RoomRepo { get; set; }
 
     public override void Configure() {
         Post(ApiRoutes.Rooms.Edit);
@@ -15,7 +15,7 @@ public class CreateRoom(RoomRepo roomRepo) : Endpoint<RoomEditDto>
 
     public override async Task HandleAsync(RoomEditDto req, CancellationToken ct) {
         var room = req.ToEntity();
-        await _roomRepo.Create(room);
+        await RoomRepo.Create(room);
         await SendOkAsync(cancellation: ct);
     }
 }

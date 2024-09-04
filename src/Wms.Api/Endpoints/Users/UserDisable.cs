@@ -3,9 +3,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Users;
 
-public class UserDisable(UserRepo userRepo) : EndpointWithoutRequest
+public class UserDisable : EndpointWithoutRequest
 {
-    private readonly UserRepo _userRepo = userRepo;
+    public UserRepo UserRepo { get; set; }
 
     public override void Configure() {
         Put(ApiRoutes.Users.Delete + ApiRoutes.IdParam);
@@ -14,13 +14,13 @@ public class UserDisable(UserRepo userRepo) : EndpointWithoutRequest
 
     public override async Task HandleAsync(CancellationToken ct) {
         var userId = Route<Guid>(ApiRoutes.IdParam);
-        var user = await _userRepo.Find(userId);
+        var user = await UserRepo.Find(userId);
         if (user == null) {
             // HANDLE_ERROR -> utente non trovato 404 + mex ? 
         }
         user.Disabled = true;
         user.DisablingDate = DateTime.Now;
-        await _userRepo.Update(user);
+        await UserRepo.Update(user);
         await SendOkAsync(cancellation: ct);
     }
 }

@@ -3,9 +3,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Floors;
 
-public class DeleteFloor(FloorRepo floorRepo) : EndpointWithoutRequest
+public class DeleteFloor : EndpointWithoutRequest
 {
-    private readonly FloorRepo _floorRepo = floorRepo;
+    public FloorRepo FloorRepo { get; set; } 
 
     public override void Configure() {
         Delete(ApiRoutes.Floors.Delete + ApiRoutes.IdParam);
@@ -14,12 +14,11 @@ public class DeleteFloor(FloorRepo floorRepo) : EndpointWithoutRequest
 
     public override async Task HandleAsync(CancellationToken ct) {
         var floorId = Route<Guid>(ApiRoutes.IdParam);
-        var floor = await _floorRepo.Find(floorId);
+        var floor = await FloorRepo.Find(floorId);
         if (floor == null) {
             // HANDLE_ERROR -> floor non trovato 404 + mex ? c'è single or throw
         }
-        
-        await _floorRepo.Delete(floor);
+        await FloorRepo.Delete(floor);
         await SendOkAsync(cancellation: ct);
     }
 }

@@ -4,9 +4,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Rooms;
 
-public class RoomList(RoomRepo roomRepo) : EndpointWithoutRequest<ListItemDto[]>
+public class RoomList : EndpointWithoutRequest<ListItemDto[]>
 {
-    private readonly RoomRepo _roomRepo = roomRepo;
+    public RoomRepo RoomRepo { get; set; }
 
     public override void Configure() {
         Get(ApiRoutes.Rooms.List + ApiRoutes.FloorIdParam);
@@ -15,7 +15,7 @@ public class RoomList(RoomRepo roomRepo) : EndpointWithoutRequest<ListItemDto[]>
 
     public override async Task<ListItemDto[]> HandleAsync(CancellationToken ct) {
         var floorId = Route<Guid>(ApiRoutes.FloorIdParam);
-        var rooms = await _roomRepo.List(floorId);
+        var rooms = await RoomRepo.List(floorId);
         var res = rooms
             .Select(u => new ListItemDto {
                 Id = u.Id,

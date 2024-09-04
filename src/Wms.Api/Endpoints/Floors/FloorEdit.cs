@@ -4,9 +4,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Floors;
 
-public class FloorEdit(FloorRepo floorRepo) : Endpoint<FloorEditDto>
+public class FloorEdit : Endpoint<FloorEditDto>
 {
-    private readonly FloorRepo _floorRepo = floorRepo;
+    public FloorRepo FloorRepo { get; set; } 
 
     public override void Configure() {
         Put(ApiRoutes.Floors.Edit + ApiRoutes.IdParam);
@@ -15,12 +15,12 @@ public class FloorEdit(FloorRepo floorRepo) : Endpoint<FloorEditDto>
 
     public override async Task HandleAsync(FloorEditDto req, CancellationToken ct) {
         var floorId = Route<Guid>(ApiRoutes.IdParam);
-        var floor = await _floorRepo.Find(floorId);
+        var floor = await FloorRepo.Find(floorId);
         if (floor == null) {
             // HANDLE_ERROR -> utente non registrato 401 + mex ? 
         }
         UpdateProperties(floor, req);
-        await _floorRepo.Update(floor);
+        await FloorRepo.Update(floor);
         await SendOkAsync(cancellation: ct);
     }
 

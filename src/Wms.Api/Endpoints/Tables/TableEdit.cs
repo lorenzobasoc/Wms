@@ -4,9 +4,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Tables;
 
-public class TableEdit(TableRepo tableRepo) : Endpoint<TableDetailDto>
+public class TableEdit : Endpoint<TableDetailDto>
 {
-    private readonly TableRepo _tableRepo = tableRepo;
+    public TableRepo TableRepo { get; set; }
 
     public override void Configure() {
         Put(ApiRoutes.Tables.Edit + ApiRoutes.IdParam);
@@ -15,12 +15,12 @@ public class TableEdit(TableRepo tableRepo) : Endpoint<TableDetailDto>
 
     public override async Task HandleAsync(TableDetailDto req, CancellationToken ct) {
         var tableId = Route<Guid>(ApiRoutes.IdParam);
-        var table = await _tableRepo.Find(tableId);
+        var table = await TableRepo.Find(tableId);
         if (table == null) {
             // HANDLE_ERROR -> utente non registrato 401 + mex ? 
         }
         UpdateProperties(table, req);
-        await _tableRepo.Update(table);
+        await TableRepo.Update(table);
         await SendOkAsync(cancellation: ct);
     }
 

@@ -4,9 +4,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Users;
 
-public class UserDetail(UserRepo userRepo) : EndpointWithoutRequest<UserDetailDto>
+public class UserDetail : EndpointWithoutRequest<UserDetailDto>
 {
-    private readonly UserRepo _userRepo = userRepo;
+    public UserRepo UserRepo { get; set; }
 
     public override void Configure() {
         Get(ApiRoutes.Users.Detail + ApiRoutes.IdParam);
@@ -15,7 +15,7 @@ public class UserDetail(UserRepo userRepo) : EndpointWithoutRequest<UserDetailDt
 
     public override async Task HandleAsync(CancellationToken ct) {
         var userId = Route<Guid>(ApiRoutes.IdParam);
-        var user = await _userRepo.Find(userId);
+        var user = await UserRepo.Find(userId);
         if (user == null) {
             // HANDLE_ERROR -> utente non trovato 404 + mex 
         }

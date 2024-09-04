@@ -4,9 +4,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Users;
 
-public class WorkerList(UserRepo userRepo) : EndpointWithoutRequest<ListItemDto[]>
+public class WorkerList : EndpointWithoutRequest<ListItemDto[]>
 {
-    private readonly UserRepo _userRepo = userRepo;
+    public UserRepo UserRepo { get; set; }
 
     public override void Configure() {
         Get(ApiRoutes.Users.WorkersList);
@@ -14,7 +14,7 @@ public class WorkerList(UserRepo userRepo) : EndpointWithoutRequest<ListItemDto[
     }
 
     public override async Task<ListItemDto[]> HandleAsync(CancellationToken ct) {
-        var users = await _userRepo.List([Constants.Authorization.Roles.WORKER]);
+        var users = await UserRepo.List([Constants.Authorization.Roles.WORKER]);
         var res = users
             .Select(u => new ListItemDto {
                 Id = u.Id,

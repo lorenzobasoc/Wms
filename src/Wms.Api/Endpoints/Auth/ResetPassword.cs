@@ -4,10 +4,10 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Auth;
 
-public class ResetPassword(UserRepo userRepo, IPasswordHasher<User> hasher) : Endpoint<SetPasswordDto>
+public class ResetPassword : Endpoint<SetPasswordDto>
 {
-    private readonly UserRepo _userRepo = userRepo;
-    private readonly IPasswordHasher<User> _hasher = hasher;
+    public UserRepo UserRepo { get; set; }
+    public IPasswordHasher<User> Hasher { get; set; }
 
 
     public override void Configure() {
@@ -17,13 +17,13 @@ public class ResetPassword(UserRepo userRepo, IPasswordHasher<User> hasher) : En
 
     public override async Task HandleAsync(SetPasswordDto req, CancellationToken ct) {
         var userId = Route<Guid>(ApiRoutes.IdParam);
-        var user = await _userRepo.Find(userId);
+        var user = await UserRepo.Find(userId);
         if (user == null) {
             // HANDLE_ERROR -> utente già registrato 401 + mex ? 
         }
-        var hash = _hasher.HashPassword(user, req.Password);
+        var hash = Hasher.HashPassword(user, req.Password);
         user.PasswordHash = hash;
-        await _userRepo.Update(user);
+        await UserRepo.Update(user);
         await SendOkAsync(cancellation: ct);
     }
 }

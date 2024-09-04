@@ -2,9 +2,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Auth;
 
-public class ConfirmEmail(UserRepo userRepo) : EndpointWithoutRequest
+public class ConfirmEmail : EndpointWithoutRequest
 {
-    private readonly UserRepo _userRepo = userRepo;
+    public UserRepo UserRepo { get; set; }
 
     public override void Configure() {
         Put(ApiRoutes.Auth.ConfirmEmail + ApiRoutes.IdParam);
@@ -13,12 +13,12 @@ public class ConfirmEmail(UserRepo userRepo) : EndpointWithoutRequest
 
     public override async Task HandleAsync(CancellationToken ct) {
         var userId = Route<Guid>(ApiRoutes.IdParam);
-        var user = await _userRepo.Find(userId);
+        var user = await UserRepo.Find(userId);
         if (user == null) {
             // HANDLE_ERROR -> utente non registrato 401 + mex ? 
         }
         user.EmailConfirmed = true;
-        await _userRepo.Update(user);
+        await UserRepo.Update(user);
         await SendOkAsync(cancellation: ct);
     }
 }

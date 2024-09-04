@@ -4,9 +4,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Floors;
 
-public class FloorDetail(FloorRepo floorRepo) : EndpointWithoutRequest<FloorDetailDto>
+public class FloorDetail : EndpointWithoutRequest<FloorDetailDto>
 {
-    private readonly FloorRepo _floorRepo = floorRepo;
+    public FloorRepo FloorRepo { get; set; } 
 
     public override void Configure() {
         Get(ApiRoutes.Floors.Detail + ApiRoutes.IdParam);
@@ -15,7 +15,7 @@ public class FloorDetail(FloorRepo floorRepo) : EndpointWithoutRequest<FloorDeta
 
     public override async Task HandleAsync(CancellationToken ct) {
         var floorId = Route<Guid>(ApiRoutes.IdParam);
-        var floor = await _floorRepo.Find(floorId);
+        var floor = await FloorRepo.Find(floorId);
         if (floor == null) {
             // HANDLE_ERROR -> utente non trovato 404 + mex occhio che c'è il SingleOrThrow
         }

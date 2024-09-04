@@ -6,8 +6,8 @@ namespace Wms.Api.Endpoints.Tables;
 
 public class CreateTable(TableRepo tableRepo, SeatRepo seatRepo) : Endpoint<TableDetailDto>
 {
-    private readonly TableRepo _tableRepo = tableRepo;
-    private readonly SeatRepo _seatRepo = seatRepo;
+    public TableRepo TableRepo { get; set; }
+    public SeatRepo SeatRepo { get; set; }
 
     public override void Configure() {
         Post(ApiRoutes.Tables.Edit);
@@ -19,9 +19,9 @@ public class CreateTable(TableRepo tableRepo, SeatRepo seatRepo) : Endpoint<Tabl
         var seats = req.Seats?
             .Select(s => s.ToEntity(table.Id))
             .ToList();
-        await _tableRepo.Create(table);
+        await TableRepo.Create(table);
         if (seats != null) {
-            await _seatRepo.Create(seats);
+            await SeatRepo.Create(seats);
         }
         await SendOkAsync(cancellation: ct);
     }

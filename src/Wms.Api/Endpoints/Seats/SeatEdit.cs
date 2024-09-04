@@ -4,9 +4,9 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Seats;
 
-public class SeatEdit(SeatRepo seatRepo) : Endpoint<SeatDetailDto>
+public class SeatEdit : Endpoint<SeatDetailDto>
 {
-    private readonly SeatRepo _seatRepo = seatRepo;
+    public SeatRepo SeatRepo { get; set; }
 
     public override void Configure() {
         Put(ApiRoutes.Seats.Edit + ApiRoutes.IdParam);
@@ -15,12 +15,12 @@ public class SeatEdit(SeatRepo seatRepo) : Endpoint<SeatDetailDto>
 
     public override async Task HandleAsync(SeatDetailDto req, CancellationToken ct) {
         var seatId = Route<Guid>(ApiRoutes.IdParam);
-        var seat = await _seatRepo.Find(seatId);
+        var seat = await SeatRepo.Find(seatId);
         if (seat == null) {
             // HANDLE_ERROR -> utente non registrato 401 + mex ? 
         }
         UpdateProperties(seat, req);
-        await _seatRepo.Update(seat);
+        await SeatRepo.Update(seat);
         await SendOkAsync(cancellation: ct);
     }
 

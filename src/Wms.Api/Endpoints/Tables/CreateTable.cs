@@ -4,7 +4,7 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Tables;
 
-public class CreateTable(TableRepo tableRepo, SeatRepo seatRepo) : Endpoint<TableDetailDto>
+public class CreateTable : Endpoint<TableDetailDto>
 {
     public TableRepo TableRepo { get; set; }
     public SeatRepo SeatRepo { get; set; }

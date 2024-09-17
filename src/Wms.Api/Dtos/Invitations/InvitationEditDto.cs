@@ -19,3 +19,15 @@ public class InvitationEditDto
         };
     }
 }
+
+public class InvitationEditDtoValidator : Validator<InvitationEditDto>
+{
+    public InvitationEditDtoValidator() {
+        RuleFor(x => x.FromUserId)
+            .NotEmpty()
+            .WithMessage("Invitation sender empty");
+        RuleFor(x => x.ToUserId)
+            .NotEmpty()
+            .WithMessage("Invitation receiver empty");
+    }
+}

@@ -12,3 +12,12 @@ public class FloorEditDto
         };
     }
 }
+
+public class FloorEditDtoValidator : Validator<FloorEditDto>
+{
+    public FloorEditDtoValidator() {
+        RuleFor(x => x.Name)
+            .NotEmpty()
+            .WithMessage("Name empty");
+    }
+}

@@ -1,5 +1,5 @@
+using System.IO.Compression;
 using Wms.Api.Constants.Bookings;
-using Wms.Api.Dtos.Seats;
 using Wms.Api.Dtos.Users;
 
 namespace Wms.Api.Dtos.Bookings;
@@ -29,5 +29,20 @@ public class BookingEditDto
                 .ToList(),
             Type = RoomId != null ? BookingTypes.ROOM : BookingTypes.SEAT,
         };
+    }
+}
+
+public class BookingEditDtoValidator : Validator<BookingEditDto>
+{
+    public BookingEditDtoValidator() {
+        RuleFor(x => x.Title)
+            .NotEmpty()
+            .WithMessage("Title empty");
+        RuleFor(x => x.StartDate)
+            .GreaterThanOrEqualTo(DateTime.Now)
+            .WithMessage("Start date is in the past");
+        RuleFor(x => x.EndDate)
+            .GreaterThan(x => x.StartDate)
+            .WithMessage("End date is less than start date");
     }
 }

@@ -12,3 +12,12 @@ public class UserBookingDto
         };
     }
 }
+
+public class UserBookingDtoValidator : Validator<UserBookingDto>
+{
+    public UserBookingDtoValidator() {
+        RuleFor(x => x.UserId)
+            .NotEmpty()
+            .WithMessage("No user provided for booking");
+    }
+}

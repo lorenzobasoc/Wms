@@ -1,4 +1,3 @@
-
 namespace Wms.Api.Dtos.Rooms;
 
 public class RoomEditDto
@@ -14,5 +13,14 @@ public class RoomEditDto
             Description = Description,
             Photo = photo
         };
+    }
+}
+
+public class RoomEditDtoValidator : Validator<RoomEditDto>
+{
+    public RoomEditDtoValidator() {
+        RuleFor(x => x.Name)
+            .NotEmpty()
+            .WithMessage("Name empty");
     }
 }

@@ -1,4 +1,4 @@
-namespace Wms.Api.Dtos.Seats;
+namespace Wms.Api.Dtos.Bookings;
 
 public class SeatBookingDto
 {
@@ -10,5 +10,14 @@ public class SeatBookingDto
             BookingId = BookingId,
             SeatId = SeatId,
         };
+    }
+}
+
+public class SeatBookingDtoValidator : Validator<SeatBookingDto>
+{
+    public SeatBookingDtoValidator() {
+        RuleFor(x => x.SeatId)
+            .NotEmpty()
+            .WithMessage("No seat provided for booking");
     }
 }

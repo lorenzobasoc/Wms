@@ -17,12 +17,13 @@ public class Login : Endpoint<LoginDto>
     public override async Task HandleAsync(LoginDto req, CancellationToken ct) {
         var user = await UserRepo.Find(req.Email);
         if (user == null) {
-            // HANDLE_ERROR -> utente non registrato 401 + mex ? 
+            ThrowError(l => l.Email, "No account found with this email.");
         }
         if (user.Disabled) {
-            // HANDLE_ERROR -> utente disabilitato 401 + mex ?
+            ThrowError(l => l.Email, "Account disabled, please confirm your account");
         }
         CheckPassword(user, user.PasswordHash, req.Password);
+
         await CookieAuth.SignInAsync(u => SetupLoggedUser(u, user));
         await SendOkAsync(cancellation: ct);
     }
@@ -30,7 +31,7 @@ public class Login : Endpoint<LoginDto>
     private void CheckPassword(User user, string hashedPassword, string providedPassword) {
         var result = Hasher.VerifyHashedPassword(user, hashedPassword, providedPassword);
         if (result != PasswordVerificationResult.Success) {
-            // HANDLE_ERROR -> password errata 401 + mex ? 
+            ThrowError(l => l.Password, "Wrong password.");
         }
     }
 

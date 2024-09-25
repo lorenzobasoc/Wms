@@ -17,7 +17,7 @@ public class UserDetail : EndpointWithoutRequest<UserDetailDto>
         var userId = Route<Guid>(ApiRoutes.IdParam);
         var user = await UserRepo.Find(userId);
         if (user == null) {
-            // HANDLE_ERROR -> utente non trovato 404 + mex 
+            await SendNotFoundAsync(ct);
         }
         var dto = user.ToUserDetail();
         await SendAsync(dto, cancellation: ct);

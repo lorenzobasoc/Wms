@@ -19,7 +19,7 @@ public class ResetPassword : Endpoint<SetPasswordDto>
         var userId = Route<Guid>(ApiRoutes.IdParam);
         var user = await UserRepo.Find(userId);
         if (user == null) {
-            // HANDLE_ERROR -> utente già registrato 401 + mex ? 
+            await SendNotFoundAsync(ct);
         }
         var hash = Hasher.HashPassword(user, req.Password);
         user.PasswordHash = hash;

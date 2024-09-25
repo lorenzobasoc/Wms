@@ -16,9 +16,8 @@ public class DeleteRoom : EndpointWithoutRequest
         var roomId = Route<Guid>(ApiRoutes.IdParam);
         var room = await RoomRepo.Find(roomId);
         if (room == null) {
-            // HANDLE_ERROR -> room non trovato 404 + mex ? c'è single or throw
+            await SendNotFoundAsync(ct);
         }
-        
         await RoomRepo.Delete(room);
         await SendOkAsync(cancellation: ct);
     }

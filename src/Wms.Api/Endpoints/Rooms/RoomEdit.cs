@@ -17,7 +17,7 @@ public class RoomEdit : Endpoint<RoomEditDto>
         var roomId = Route<Guid>(ApiRoutes.IdParam);
         var room = await RoomRepo.Find(roomId);
         if (room == null) {
-            // HANDLE_ERROR -> utente non registrato 401 + mex ? 
+            await SendNotFoundAsync(ct);
         }
         UpdateProperties(room, req);
         await RoomRepo.Update(room);

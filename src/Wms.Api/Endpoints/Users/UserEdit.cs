@@ -17,7 +17,7 @@ public class UserEdit : Endpoint<UserEditDto>
         var userId = Route<Guid>(ApiRoutes.IdParam);
         var user = await UserRepo.Find(userId);
         if (user == null) {
-            // HANDLE_ERROR -> utente non registrato 401 + mex ? 
+            await SendNotFoundAsync(ct);
         }
         UpdateProperties(user, req);
         await UserRepo.Update(user);

@@ -36,8 +36,8 @@ public class UserRepo(AppConfiguration config, Db db) : BaseRepo(config, db)
         return users;
     }
 
-    public async Task<Guid> GetUserId(string? email) {
-        var users = await _db.Users.SingleOrThrowAsync(u => u.Email == email);
-        return users.Id;
+    public async Task<Guid> GetUserId(string email) {
+        var user = await _db.Users.SingleOrDefaultAsync(u => u.Email == email);
+        return user.Id;
     }
 }

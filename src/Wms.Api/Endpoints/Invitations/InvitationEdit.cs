@@ -17,7 +17,7 @@ public class InvitationEdit : Endpoint<InvitationEditDto>
         var invitationId = Route<Guid>(ApiRoutes.IdParam);
         var invitation = await InvitationRepo.Find(invitationId);
         if (invitation == null) {
-            // HANDLE_ERROR -> utente non registrato 401 + mex ? 
+            await SendNotFoundAsync(ct);
         }
         UpdateProperties(invitation, req);
         await InvitationRepo.Update(invitation);

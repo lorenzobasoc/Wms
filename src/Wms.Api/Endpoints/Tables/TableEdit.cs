@@ -17,7 +17,7 @@ public class TableEdit : Endpoint<TableDetailDto>
         var tableId = Route<Guid>(ApiRoutes.IdParam);
         var table = await TableRepo.Find(tableId);
         if (table == null) {
-            // HANDLE_ERROR -> utente non registrato 401 + mex ? 
+            await SendNotFoundAsync(ct);
         }
         UpdateProperties(table, req);
         await TableRepo.Update(table);

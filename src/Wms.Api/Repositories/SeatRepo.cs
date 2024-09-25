@@ -17,7 +17,7 @@ public class SeatRepo(AppConfiguration config, Db db) : BaseRepo(config, db)
     }
 
     public async Task<Seat> Find(Guid id) {
-        var seat = await _db.Seats.SingleOrThrowAsync(s => s.Id == id);
+        var seat = await _db.Seats.SingleOrDefaultAsync(s => s.Id == id);
         return seat;
     }
 

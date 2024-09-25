@@ -44,7 +44,7 @@ public class BookingRepo(AppConfiguration config, Db db) : BaseRepo(config, db)
             .Include(b => b.Seats)
             .Include(b => b.Users)
             .Include(b => b.Invitations)
-            .SingleOrThrowAsync(b => b.Id == bookingId);
+            .SingleOrDefaultAsync(b => b.Id == bookingId);
         return booking;
     }
 
@@ -56,5 +56,24 @@ public class BookingRepo(AppConfiguration config, Db db) : BaseRepo(config, db)
     public async Task Update(Booking booking) {
         _db.Bookings.Update(booking);
         await _db.SaveChangesAsync();
+    }
+
+    public async Task<List<Booking>> FindBookingsForSeat(Guid seatId, DateTime startDate, DateTime endDate) {
+        var bookings = await _db.Bookings
+            .Include(b => b.Seats)
+            .Where(b => b.Seats.Select(s => s.SeatId).Contains(seatId))
+            .Where(b => b.StartDate < endDate)
+            .Where(b => b.EndDate > startDate)
+            .ToListAsync();
+        return bookings;
+    }
+
+    public async Task<List<Booking>> FindBookingsForRoom(Guid? roomId, DateTime startDate, DateTime endDate) {
+        var bookings = await _db.Bookings
+            .Where(b => b.RoomId == roomId)
+            .Where(b => b.StartDate < endDate)
+            .Where(b => b.EndDate > startDate)
+            .ToListAsync();
+        return bookings;
     }
 }

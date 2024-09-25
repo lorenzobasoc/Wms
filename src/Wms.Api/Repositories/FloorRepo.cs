@@ -9,7 +9,7 @@ public class FloorRepo(AppConfiguration config, Db db) : BaseRepo(config, db)
     public async Task<Floor> Find(Guid id) {
         var floor = await _db.Floors
             .Include(f => f.Rooms)
-            .SingleOrThrowAsync(f => f.Id == id);
+            .SingleOrDefaultAsync(f => f.Id == id);
         return floor;
     }
 

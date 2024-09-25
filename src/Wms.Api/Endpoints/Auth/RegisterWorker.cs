@@ -16,7 +16,7 @@ public class RegisterWorker : Endpoint<RegisterWorkerDto>
     public override async Task HandleAsync(RegisterWorkerDto req, CancellationToken ct) {
         var user = await UserRepo.Find(req.Email);
         if (user != null) {
-            // HANDLE_ERROR -> utente già registrato 401 + mex ? 
+            ThrowError(r => r.Email, "Email already used.");
         }
         user = new User {
             Email = req.Email,

@@ -1,4 +1,3 @@
-using System.IO.Compression;
 using Wms.Api.Constants.Bookings;
 using Wms.Api.Dtos.Users;
 

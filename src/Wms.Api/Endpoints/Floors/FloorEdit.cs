@@ -17,7 +17,7 @@ public class FloorEdit : Endpoint<FloorEditDto>
         var floorId = Route<Guid>(ApiRoutes.IdParam);
         var floor = await FloorRepo.Find(floorId);
         if (floor == null) {
-            // HANDLE_ERROR -> utente non registrato 401 + mex ? 
+            await SendNotFoundAsync(ct);
         }
         UpdateProperties(floor, req);
         await FloorRepo.Update(floor);

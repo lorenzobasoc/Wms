@@ -14,7 +14,7 @@ public class InvitationRepo(AppConfiguration config, Db db) : BaseRepo(config, d
     }
 
     public async Task<Invitation> Find(Guid id) {
-        var invitation = await _db.Invitations.SingleOrThrowAsync(r => r.Id == id);
+        var invitation = await _db.Invitations.SingleOrDefaultAsync(r => r.Id == id);
         return invitation;
     }
 

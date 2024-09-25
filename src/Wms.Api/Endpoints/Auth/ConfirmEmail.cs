@@ -15,7 +15,7 @@ public class ConfirmEmail : EndpointWithoutRequest
         var userId = Route<Guid>(ApiRoutes.IdParam);
         var user = await UserRepo.Find(userId);
         if (user == null) {
-            // HANDLE_ERROR -> utente non registrato 401 + mex ? 
+            await SendNotFoundAsync(ct);
         }
         user.EmailConfirmed = true;
         await UserRepo.Update(user);

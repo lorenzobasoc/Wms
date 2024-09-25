@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Wms.Api.Constants.Authorization;
 using Wms.Api.DataAccess;
 using Wms.Api.Repositories;
+using Wms.Api.Services;
 
 namespace Wms.Api.Infrastructure;
 
@@ -18,11 +19,16 @@ public static class ServicesConfigurator
         ConfigureRepos();
         ConfigureAuthentication();
         ConfigureFastEndpoints();
+        ConfigureBookingValidation();
     }
 
     private static void InitializeServices(WebApplicationBuilder builder) {
         _services = builder.Services;
         _config = new AppConfiguration(builder.Configuration);
+    }
+
+    private static void ConfigureBookingValidation() {
+        _services.AddScoped<BookingValidationService>();
     }
 
     private static void ConfigureRepos() {

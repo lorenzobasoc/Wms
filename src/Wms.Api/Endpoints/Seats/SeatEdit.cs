@@ -17,7 +17,7 @@ public class SeatEdit : Endpoint<SeatDetailDto>
         var seatId = Route<Guid>(ApiRoutes.IdParam);
         var seat = await SeatRepo.Find(seatId);
         if (seat == null) {
-            // HANDLE_ERROR -> utente non registrato 401 + mex ? 
+            await SendNotFoundAsync(ct);
         }
         UpdateProperties(seat, req);
         await SeatRepo.Update(seat);

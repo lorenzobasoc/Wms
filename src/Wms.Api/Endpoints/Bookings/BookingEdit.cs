@@ -1,6 +1,7 @@
 using Wms.Api.Constants.Authorization;
 using Wms.Api.Dtos.Bookings;
 using Wms.Api.Repositories;
+using Wms.Api.Services;
 
 namespace Wms.Api.Endpoints.Bookings;
 
@@ -8,6 +9,8 @@ public class BookingEdit : Endpoint<BookingEditDto>
 {
     public BookingRepo BookingRepo { get; set; }
     public UserRepo UserRepo { get; set; }
+    public BookingValidationService BookingValidationService { get; set; }
+
 
     public override void Configure() {
         Put(ApiRoutes.Bookings.Edit + ApiRoutes.IdParam);
@@ -19,11 +22,14 @@ public class BookingEdit : Endpoint<BookingEditDto>
         var userId = await UserRepo.GetUserId(User.Identity.Name);
         var booking = await BookingRepo.Find(bookingId);
         if (booking == null) {
-            // HANDLE_ERROR -> utente non registrato 401 + mex ? 
+            await SendNotFoundAsync(ct);
         }
-        if  (booking.HasUser(userId)) {
-            // HANDLE_ERROR: throw forbidden o null?
+        if (!booking.HasUser(userId)) {
+           await SendForbiddenAsync(ct);
         }
+        
+        await BookingValidationService.Validate(req);
+
         UpdateProperties(booking, req);
         await BookingRepo.Update(booking);
         await SendOkAsync(cancellation: ct);

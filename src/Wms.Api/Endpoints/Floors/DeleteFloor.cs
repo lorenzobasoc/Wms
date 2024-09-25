@@ -16,7 +16,7 @@ public class DeleteFloor : EndpointWithoutRequest
         var floorId = Route<Guid>(ApiRoutes.IdParam);
         var floor = await FloorRepo.Find(floorId);
         if (floor == null) {
-            // HANDLE_ERROR -> floor non trovato 404 + mex ? c'è single or throw
+            await SendNotFoundAsync(ct);
         }
         await FloorRepo.Delete(floor);
         await SendOkAsync(cancellation: ct);

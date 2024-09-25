@@ -16,7 +16,7 @@ public class UserDisable : EndpointWithoutRequest
         var userId = Route<Guid>(ApiRoutes.IdParam);
         var user = await UserRepo.Find(userId);
         if (user == null) {
-            // HANDLE_ERROR -> utente non trovato 404 + mex ? 
+            await SendNotFoundAsync(ct);
         }
         user.Disabled = true;
         user.DisablingDate = DateTime.Now;

@@ -17,7 +17,7 @@ public class FloorDetail : EndpointWithoutRequest<FloorDetailDto>
         var floorId = Route<Guid>(ApiRoutes.IdParam);
         var floor = await FloorRepo.Find(floorId);
         if (floor == null) {
-            // HANDLE_ERROR -> utente non trovato 404 + mex occhio che c'è il SingleOrThrow
+            await SendNotFoundAsync(ct);
         }
         var dto = floor.ToFloorDetail();
         await SendAsync(dto, cancellation: ct);

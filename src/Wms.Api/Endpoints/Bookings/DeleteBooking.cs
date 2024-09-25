@@ -15,13 +15,13 @@ public class DeleteBooking : EndpointWithoutRequest
 
     public override async Task HandleAsync(CancellationToken ct) {
         var bookingId = Route<Guid>(ApiRoutes.IdParam);
-        var userId = await UserRepo.GetUserId(User.Identity.Name);
+        var user = await UserRepo.Find(User.Identity.Name);
         var booking = await BookingRepo.Find(bookingId);
         if (booking == null) {
-            // HANDLE_ERROR -> booking non trovato 404 + mex ? c'è single or throw
+            await SendNotFoundAsync(ct);
         }
-         if  (booking.HasUser(userId)) {
-            // HANDLE_ERROR: throw forbidden o null?
+        if (!booking.HasUser(user.Id)) {
+            await SendForbiddenAsync(ct);
         }
         await BookingRepo.Delete(booking);
         await SendOkAsync(cancellation: ct);

@@ -19,10 +19,10 @@ public class BookingDetail : EndpointWithoutRequest<BookingDetailDto>
         var userId = await UserRepo.GetUserId(User.Identity.Name);
         var booking = await BookingRepo.Find(bookingId);
         if (booking == null) {
-            // HANDLE_ERROR -> booking non trovato 404 + mex occhio che c'è il SingleOrThrow
+            await SendNotFoundAsync(ct);
         }
-        if  (booking.HasUser(userId)) {
-            // HANDLE_ERROR: throw forbidden o null?
+        if (!booking.HasUser(userId)) {
+            await SendForbiddenAsync(ct);
         }
         var dto = booking.ToBookingDetail();
         await SendAsync(dto, cancellation: ct);

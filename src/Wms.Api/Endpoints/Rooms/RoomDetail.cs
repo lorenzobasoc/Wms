@@ -17,7 +17,7 @@ public class RoomDetail : EndpointWithoutRequest<RoomDetailDto>
         var roomId = Route<Guid>(ApiRoutes.IdParam);
         var room = await RoomRepo.Find(roomId);
         if (room == null) {
-            // HANDLE_ERROR -> utente non trovato 404 + mex occhio che c'è il SingleOrThrow
+            await SendNotFoundAsync(ct);
         }
         var dto = room.ToRoomDetail();
         await SendAsync(dto, cancellation: ct);

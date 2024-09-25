@@ -4,7 +4,7 @@ using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Users;
 
-public class WorkerList : EndpointWithoutRequest<ListItemDto[]>
+public class WorkerList : EndpointWithoutRequest<List<ListItemDto>>
 {
     public UserRepo UserRepo { get; set; }
 
@@ -13,14 +13,14 @@ public class WorkerList : EndpointWithoutRequest<ListItemDto[]>
         Policies(AppPolicies.ADMIN_POLICY);
     }
 
-    public override async Task<ListItemDto[]> HandleAsync(CancellationToken ct) {
+    public override async Task<List<ListItemDto>> HandleAsync(CancellationToken ct) {
         var users = await UserRepo.List([Constants.Authorization.Roles.WORKER]);
         var res = users
             .Select(u => new ListItemDto {
                 Id = u.Id,
                 Description = u.Email
             })
-            .ToArray();
+            .ToList();
         return res;
     }
 }

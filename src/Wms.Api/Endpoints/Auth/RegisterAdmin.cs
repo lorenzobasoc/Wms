@@ -17,8 +17,9 @@ public class RegisterAdmin : Endpoint<RegisterDto>
     public override async Task HandleAsync(RegisterDto req, CancellationToken ct) {
         var user = await UserRepo.Find(req.Email);
         if (user != null) {
-            // HANDLE_ERROR -> utente già registrato 401 + mex ? 
+            ThrowError(r => r.Email, "Email already used.");
         }
+
         user = new User {
             Email = req.Email,
             Name = req.Name,

@@ -16,7 +16,7 @@ public class DeleteSeat : EndpointWithoutRequest
         var seatId = Route<Guid>(ApiRoutes.IdParam);
         var seat = await SeatRepo.Find(seatId);
         if (seat == null) {
-            // HANDLE_ERROR -> seat non trovato 404 + mex ? c'è single or throw
+            await SendNotFoundAsync(ct);
         }
         await SeatRepo.Delete(seat);
         await SendOkAsync(cancellation: ct);

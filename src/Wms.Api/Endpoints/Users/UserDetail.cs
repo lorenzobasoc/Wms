@@ -14,7 +14,7 @@ public class UserDetail : EndpointWithoutRequest<UserDetailDto>
     }
 
     public override async Task HandleAsync(CancellationToken ct) {
-        var userId = Route<Guid>(ApiRoutes.IdParam);
+        var userId = Route<Guid>("Id");
         var user = await UserRepo.Find(userId);
         if (user == null) {
             await SendNotFoundAsync(ct);

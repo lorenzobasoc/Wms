@@ -14,7 +14,7 @@ public class DeleteBooking : EndpointWithoutRequest
     }
 
     public override async Task HandleAsync(CancellationToken ct) {
-        var bookingId = Route<Guid>(ApiRoutes.IdParam);
+        var bookingId = Route<Guid>("Id");
         var user = await UserRepo.Find(User.Identity.Name);
         var booking = await BookingRepo.Find(bookingId);
         if (booking == null) {

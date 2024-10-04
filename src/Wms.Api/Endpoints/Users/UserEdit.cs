@@ -14,7 +14,7 @@ public class UserEdit : Endpoint<UserEditDto>
     }
 
     public override async Task HandleAsync(UserEditDto req, CancellationToken ct) {
-        var userId = Route<Guid>(ApiRoutes.IdParam);
+        var userId = Route<Guid>("Id");
         var user = await UserRepo.Find(userId);
         if (user == null) {
             await SendNotFoundAsync(ct);

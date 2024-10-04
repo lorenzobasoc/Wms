@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Wms.Api.Dtos.Auth;
 using Wms.Api.Repositories;
@@ -20,7 +21,10 @@ public class Login : Endpoint<LoginDto>
             ThrowError(l => l.Email, "No account found with this email.");
         }
         if (user.Disabled) {
-            ThrowError(l => l.Email, "Account disabled, please confirm your account");
+            ThrowError(l => l.Email, "Account disabled.");
+        }
+        if (!user.EmailConfirmed) {
+            ThrowError(l => l.Email, "Email not confirmed, please confirm your account.");
         }
         CheckPassword(user, user.PasswordHash, req.Password);
 
@@ -36,10 +40,10 @@ public class Login : Endpoint<LoginDto>
     }
 
     private static void SetupLoggedUser(UserPrivileges up, User user) {
-        up.Roles.Add(user.Role);
-        up.Claims.Add(new("Address", "123 Street"));
-        up[nameof(user.Email)] = user.Email;
-        up[nameof(user.Name)] = user.Email;
+        // up.Claims.Add(new("Address", "123 Street"));
+
+        up[ClaimTypes.Role] = user.Role;
+        up[ClaimTypes.Name] = user.Email;
     }
 }
 

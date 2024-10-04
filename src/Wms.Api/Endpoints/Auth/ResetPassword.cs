@@ -16,7 +16,7 @@ public class ResetPassword : Endpoint<SetPasswordDto>
     }
 
     public override async Task HandleAsync(SetPasswordDto req, CancellationToken ct) {
-        var userId = Route<Guid>(ApiRoutes.IdParam);
+        var userId = Route<Guid>("Id");
         var user = await UserRepo.Find(userId);
         if (user == null) {
             await SendNotFoundAsync(ct);

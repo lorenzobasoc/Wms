@@ -14,7 +14,7 @@ public class FloorEdit : Endpoint<FloorEditDto>
     }
 
     public override async Task HandleAsync(FloorEditDto req, CancellationToken ct) {
-        var floorId = Route<Guid>(ApiRoutes.IdParam);
+        var floorId = Route<Guid>("Id");
         var floor = await FloorRepo.Find(floorId);
         if (floor == null) {
             await SendNotFoundAsync(ct);

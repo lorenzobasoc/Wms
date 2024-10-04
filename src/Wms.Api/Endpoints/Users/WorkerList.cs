@@ -1,10 +1,10 @@
 using Wms.Api.Constants.Authorization;
-using Wms.Api.Dtos;
+using Wms.Api.Dtos.Users;
 using Wms.Api.Repositories;
 
 namespace Wms.Api.Endpoints.Users;
 
-public class WorkerList : EndpointWithoutRequest<List<ListItemDto>>
+public class WorkerList : EndpointWithoutRequest<List<UserDetailDto>>
 {
     public UserRepo UserRepo { get; set; }
 
@@ -13,14 +13,16 @@ public class WorkerList : EndpointWithoutRequest<List<ListItemDto>>
         Policies(AppPolicies.ADMIN_POLICY);
     }
 
-    public override async Task<List<ListItemDto>> HandleAsync(CancellationToken ct) {
-        var users = await UserRepo.List([Constants.Authorization.Roles.WORKER]);
+    public override async Task HandleAsync(CancellationToken ct) {
+        var users = await UserRepo.List([ Constants.Authorization.Roles.WORKER ]);
         var res = users
-            .Select(u => new ListItemDto {
+            .Select(u => new UserDetailDto {
                 Id = u.Id,
-                Description = u.Email
+                Name = u.Name,
+                Surname = u.Surname,
+                Email = u.Email,
             })
             .ToList();
-        return res;
+        await SendAsync(res, cancellation: ct);
     }
 }

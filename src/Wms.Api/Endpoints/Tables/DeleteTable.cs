@@ -13,7 +13,7 @@ public class DeleteTable : EndpointWithoutRequest
     }
 
     public override async Task HandleAsync(CancellationToken ct) {
-        var tableId = Route<Guid>(ApiRoutes.IdParam);
+        var tableId = Route<Guid>("Id");
         var table = await TableRepo.Find(tableId);
         if (table == null) {
             await SendNotFoundAsync(ct);

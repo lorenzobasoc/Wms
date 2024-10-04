@@ -14,7 +14,7 @@ public class InvitationEdit : Endpoint<InvitationEditDto>
     }
 
     public override async Task HandleAsync(InvitationEditDto req, CancellationToken ct) {
-        var invitationId = Route<Guid>(ApiRoutes.IdParam);
+        var invitationId = Route<Guid>("Id");
         var invitation = await InvitationRepo.Find(invitationId);
         if (invitation == null) {
             await SendNotFoundAsync(ct);

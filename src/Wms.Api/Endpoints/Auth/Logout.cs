@@ -6,7 +6,7 @@ public class Logout : EndpointWithoutRequest
 {
     public override void Configure() {
         Post(ApiRoutes.Auth.Logout);
-        Policies(AppPolicies.WORKER_POLICY);
+        // Policies(AppPolicies.WORKER_POLICY);
     }
 
     public override async Task HandleAsync(CancellationToken ct) {

@@ -14,7 +14,7 @@ public class SeatEdit : Endpoint<SeatDetailDto>
     }
 
     public override async Task HandleAsync(SeatDetailDto req, CancellationToken ct) {
-        var seatId = Route<Guid>(ApiRoutes.IdParam);
+        var seatId = Route<Guid>("Id");
         var seat = await SeatRepo.Find(seatId);
         if (seat == null) {
             await SendNotFoundAsync(ct);

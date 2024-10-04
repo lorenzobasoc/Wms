@@ -13,7 +13,7 @@ public class ApiRoutes
         public const string Login = _base + "/login";
         public const string Logout = _base + "/logout";
         public const string RegisterAdmin = _base + "/register-admin";
-        public const string RegisterWorker = _base + "/register-user";
+        public const string RegisterWorker = _base + "/register-worker";
         public const string ConfirmEmail = _base + "/confirm-email";
         public const string ResetPassword = _base + "/reset-password";
     }

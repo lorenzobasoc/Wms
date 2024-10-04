@@ -14,7 +14,7 @@ public class RoomEdit : Endpoint<RoomEditDto>
     }
 
     public override async Task HandleAsync(RoomEditDto req, CancellationToken ct) {
-        var roomId = Route<Guid>(ApiRoutes.IdParam);
+        var roomId = Route<Guid>("Id");
         var room = await RoomRepo.Find(roomId);
         if (room == null) {
             await SendNotFoundAsync(ct);

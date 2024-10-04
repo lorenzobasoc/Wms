@@ -7,7 +7,7 @@ public static class PipelineConfigurator
         //     app.UseSwagger();
         //     app.UseSwaggerUI();
         // }
-        app.UseHttpsRedirection();
+        // app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseFastEndpoints();

@@ -18,7 +18,7 @@ public class BookingEdit : Endpoint<BookingEditDto>
     }
 
     public override async Task HandleAsync(BookingEditDto req, CancellationToken ct) {
-        var bookingId = Route<Guid>(ApiRoutes.IdParam);
+        var bookingId = Route<Guid>("Id");
         var userId = await UserRepo.GetUserId(User.Identity.Name);
         var booking = await BookingRepo.Find(bookingId);
         if (booking == null) {

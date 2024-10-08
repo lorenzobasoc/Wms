@@ -11,7 +11,7 @@ public class User : DomainEntity
     public bool EmailConfirmed { get; set; }
     public string? PasswordHash { get; set; }
     public bool Disabled { get; set; }
-    public DateTime DisablingDate { get; set; }
+    public DateTime? DisablingDate { get; set; }
 
     public AppFile Photo { get; set; }
     public Guid? PhotoId { get; set; }
@@ -27,7 +27,7 @@ public class User : DomainEntity
             Surname = Surname,
             Role = Role,
             Email = Email,
-            Photo = Photo.Data,
+            Photo = Photo?.Data,
         };
     }
 }
